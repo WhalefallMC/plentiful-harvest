@@ -1,7 +1,9 @@
 package me.glasscrab.plentiful_harvest;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -13,9 +15,13 @@ public class Manager {
         manager = this;
     }
 
-    public ItemStack makeSuperCrop(String name, Material material, List<String> lore, int customModelData){
-        ItemStack superCropItem = new ItemStack(material,1);
+    public ItemStack makeSuperCrop(String name, Material material, List<String> lore, int customModelData) {
+        ItemStack superCropItem = new ItemStack(material, 1);
         ItemMeta superCropItemMeta = superCropItem.getItemMeta();
+
+        if(superCropItemMeta == null) {
+            return null;
+        }
 
         superCropItemMeta.setDisplayName(name);
         superCropItemMeta.setLore(lore);
@@ -25,14 +31,31 @@ public class Manager {
         return superCropItem;
     }
 
-    public boolean isFull(Player player, ItemStack item){
-        for (ItemStack checkItem : player.getInventory().getStorageContents()){
+    public boolean isFull(Player player, ItemStack item) {
+        for (ItemStack checkItem : player.getInventory().getStorageContents()) {
             if(checkItem.getItemMeta() == null) return false;
-            if(checkItem.getItemMeta().equals(item.getItemMeta()) && checkItem.getAmount() < 62){
-                return false;
-            }
+            if(checkItem.getItemMeta().equals(item.getItemMeta()) && checkItem.getAmount() < 62) return false;
         }
+        
         return true;
+    }
+
+    public void giveSuperCrop(Player player, ItemStack superCrop, BlockDropItemEvent event) {
+        player.getInventory().addItem(superCrop);
+
+        if(player.getInventory().firstEmpty() != -1) return;
+        if(this.isFull(player, superCrop)) return;
+
+        Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
+        superCropItem.setGlowing(true);
+    }
+
+    public void giveDroppedItems(Player player, List<Item> droppedItems) {
+        for(Item droppedItem : droppedItems) {
+            droppedItem.remove();
+            droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
+            player.getInventory().addItem(droppedItem.getItemStack());
+        }
     }
 
     public static Manager getManager() {

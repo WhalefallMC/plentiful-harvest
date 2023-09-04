@@ -1,4 +1,4 @@
-package me.glasscrab.plentiful_harvest;
+package me.glasscrab.plentiful_harvest.Listeners;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class FarmlandTrampleEvent implements Listener {
 
     @EventHandler
-    public void trampleFarmland(PlayerInteractEvent e) {
+    public void trampleFarmLand(PlayerInteractEvent e) {
         if(!e.getAction().equals(Action.PHYSICAL)) return;
         if(!e.getClickedBlock().getType().equals(Material.FARMLAND)) return;
         if(e.getPlayer().getEquipment() == null) return;
@@ -20,6 +20,5 @@ public class FarmlandTrampleEvent implements Listener {
         if(e.getPlayer().getEquipment().getBoots().getItemMeta().getCustomModelData() != 1) return;
 
         e.setCancelled(true);
-
     }
 }

@@ -1,5 +1,7 @@
-package me.glasscrab.plentiful_harvest;
+package me.glasscrab.plentiful_harvest.Listeners.CropBreaks;
 
+import me.glasscrab.plentiful_harvest.Manager;
+import me.glasscrab.plentiful_harvest.Plentiful_harvest;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Container;
@@ -15,28 +17,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeetrootBreakEvent implements Listener {
+    private final Manager manager;
+    
+    public BeetrootBreakEvent(Manager manager) {
+        this.manager = manager;
+    }
 
     @EventHandler
-    public void onBeetrootBreak(BlockDropItemEvent e){
-        if(e.getItems().size() < 1) return;
+    public void onBeetrootBreak(BlockDropItemEvent e) {
+        if(e.getItems().isEmpty()) return;
         if(!e.getBlockState().getType().equals(Material.BEETROOTS)) return;
+        
         Ageable age = (Ageable) e.getBlockState().getBlockData();
-        if(age.getAge() != age.getMaximumAge()){
+        
+        if(age.getAge() != age.getMaximumAge()) {
             ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
-            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 4 || handItem.getItemMeta().getCustomModelData() == 104)){
+            
+            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 4 || handItem.getItemMeta().getCustomModelData() == 104)) {
                 e.getBlock().setType(Material.BEETROOTS);
                 e.getBlock().setBlockData(age);
-                for(Item droppedItem : e.getItems()){
+                
+                for(Item droppedItem : e.getItems()) {
                     droppedItem.remove();
                 }
                 return;
             }
-            else{
-                return;
-            }
+            return;
         }
 
-        for (Item dropItem : e.getItems()){
+        for (Item dropItem : e.getItems()) {
             if(!(dropItem.getItemStack().getType().equals(Material.BEETROOT))) continue;
             if(e.getBlockState() instanceof Container) return;
 
@@ -45,14 +54,16 @@ public class BeetrootBreakEvent implements Listener {
             int jackpot = 256;
 
             ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
-            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 4){
-                for(Item droppedItem : e.getItems()){
+            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 4) {
+                for(Item droppedItem : e.getItems()) {
                     droppedItem.remove();
-                    if(droppedItem.getItemStack().getType().equals(Material.BEETROOT_SEEDS)){
+                    if(droppedItem.getItemStack().getType().equals(Material.BEETROOT_SEEDS)) {
                         droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
                     }
+                    
                     e.getPlayer().getInventory().addItem(droppedItem.getItemStack());
                 }
+                
                 Ageable ageable = (Ageable) e.getBlockState().getBlockData();
                 ageable.setAge(0);
 
@@ -62,11 +73,11 @@ public class BeetrootBreakEvent implements Listener {
                         e.getBlock().setBlockData(ageable);
                     }
                 }.runTaskLater(Plentiful_harvest.plentiful_harvest, 1);
-            }
-            else if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 104){
+            } else if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 104) {
                 for(Item droppedItem : e.getItems()){
                     droppedItem.remove();
                 }
+                
                 Ageable ageable = (Ageable) e.getBlockState().getBlockData();
                 ageable.setAge(0);
 
@@ -77,20 +88,17 @@ public class BeetrootBreakEvent implements Listener {
                     }
                 }.runTaskLater(Plentiful_harvest.plentiful_harvest, 1);
             }
+            
             if(rand != jackpot) return;
+            
             e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "You harvested a Mystic Beetroot!");
             List<String> beetrootLore = new ArrayList<>();
             beetrootLore.add(ChatColor.GRAY + "A beetroot so old it's been infused with magic.");
-            ItemStack superCrop = Manager.getManager().makeSuperCrop(ChatColor.LIGHT_PURPLE+ "Mystic Beetroot",Material.BEETROOT,beetrootLore,1);
+            ItemStack superCrop = manager.makeSuperCrop(ChatColor.LIGHT_PURPLE+ "Mystic Beetroot",Material.BEETROOT,beetrootLore,1);
 
-            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 4 || handItem.getItemMeta().getCustomModelData() == 104)){
-                e.getPlayer().getInventory().addItem(superCrop);
-                if(e.getPlayer().getInventory().firstEmpty() != -1) return;
-                if(!Manager.getManager().isFull(e.getPlayer(),superCrop)) return;
-                Item superCropItem = e.getItems().get(0).getWorld().dropItem(e.getItems().get(0).getLocation(),superCrop);
-                superCropItem.setGlowing(true);
-            }
-            else{
+            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 4 || handItem.getItemMeta().getCustomModelData() == 104)) {
+                manager.giveSuperCrop(e.getPlayer(), superCrop, e);
+            } else {
                 Item superCropItem = e.getItems().get(0).getWorld().dropItem(e.getItems().get(0).getLocation(),superCrop);
                 superCropItem.setGlowing(true);
             }

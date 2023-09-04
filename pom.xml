@@ -6,12 +6,12 @@
 
     <groupId>me.glasscrab</groupId>
     <artifactId>plentiful_harvest</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>Plentiful_harvest</name>
 
-    <description>Farm ing plugin for sootsmp</description>
+    <description>Farming plugin for sootsmp</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

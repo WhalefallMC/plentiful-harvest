@@ -1,0 +1,6 @@
+name: Plentiful_harvest
+version: '${project.version}'
+main: me.glasscrab.plentiful_harvest.Plentiful_harvest
+api-version: 1.20
+authors: [ glasscrab ]
+description: Farm ing plugin for sootsmp

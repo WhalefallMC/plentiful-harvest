@@ -10,11 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 
 public class Manager {
-    private static Manager manager;
-    public Manager() {
-        manager = this;
-    }
-
     public ItemStack makeSuperCrop(String name, Material material, List<String> lore, int customModelData) {
         ItemStack superCropItem = new ItemStack(material, 1);
         ItemMeta superCropItemMeta = superCropItem.getItemMeta();
@@ -56,9 +51,5 @@ public class Manager {
             droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
             player.getInventory().addItem(droppedItem.getItemStack());
         }
-    }
-
-    public static Manager getManager() {
-        return manager;
     }
 }

@@ -2,7 +2,6 @@ package me.glasscrab.plentiful_harvest;
 
 import me.glasscrab.plentiful_harvest.Listeners.CropBreaks.*;
 import me.glasscrab.plentiful_harvest.Listeners.FarmlandTrampleEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Plentiful_harvest extends JavaPlugin {

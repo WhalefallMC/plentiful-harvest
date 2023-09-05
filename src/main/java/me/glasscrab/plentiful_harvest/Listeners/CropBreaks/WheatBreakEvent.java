@@ -31,7 +31,7 @@ public class WheatBreakEvent implements Listener {
         
         if(age.getAge() != age.getMaximumAge()) {
             ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
-            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 1 || handItem.getItemMeta().getCustomModelData() == 101)) {
+            if(manager.isCustomHoe(handItem, Material.WHEAT)) {
                 e.getBlock().setType(Material.WHEAT);
                 e.getBlock().setBlockData(age);
                 

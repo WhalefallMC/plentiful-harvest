@@ -14,12 +14,12 @@ public class AnimalFeedEvent implements Listener {
         ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
         ItemStack offhand = e.getPlayer().getInventory().getItemInOffHand();
 
-        if(isSpeicalCrop(hand) || isSpeicalCrop(offhand)) {
+        if(isSpecialCrop(hand) || isSpecialCrop(offhand)) {
             e.setCancelled(true);
         }
     }
 
-    private boolean isSpeicalCrop(ItemStack item) {
+    private boolean isSpecialCrop(ItemStack item) {
         return (item.getItemMeta() != null &&
                 item.getItemMeta().hasCustomModelData() &&
                 item.getItemMeta().getCustomModelData() == 1);

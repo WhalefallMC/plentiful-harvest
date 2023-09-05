@@ -1,7 +1,6 @@
 package me.glasscrab.plentiful_harvest.Listeners.CropBreaks;
 
 import me.glasscrab.plentiful_harvest.Manager;
-import me.glasscrab.plentiful_harvest.PlentifulHarvest;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Container;
@@ -11,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +31,11 @@ public class NetherWartBreakEvent implements Listener {
         if(age.getAge() != age.getMaximumAge()) {
             ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
             
-            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 5 || handItem.getItemMeta().getCustomModelData() == 105)) {
-                e.getBlock().setType(Material.NETHER_WART);
-                e.getBlock().setBlockData(age);
-                
-                for(Item droppedItem : e.getItems()){
-                    droppedItem.remove();
-                }
+            if(!manager.isCustomHoe(handItem, Material.NETHER_WART)) {
+                return;
             }
+
+            manager.replant(e.getBlock(), Material.NETHER_WART, age, e.getItems());
             return;
         }
 
@@ -52,19 +47,15 @@ public class NetherWartBreakEvent implements Listener {
         int jackpot = 256;
         
         ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
-        if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 5) {
+
+        if(manager.isCustomHoeOne(Material.NETHER_WART, handItem)) {
             manager.giveDroppedItems(e.getPlayer(), e.getItems());
             
             Ageable ageable = (Ageable) e.getBlockState().getBlockData();
             ageable.setAge(0);
 
-            new BukkitRunnable() {
-                public void run() {
-                    e.getBlock().setType(Material.NETHER_WART);
-                    e.getBlock().setBlockData(ageable);
-                }
-            }.runTaskLater(PlentifulHarvest.INSTANCE, 1);
-        } else if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 105) {
+            manager.replantLater(e.getBlock(), Material.NETHER_WART, ageable);
+        } else if(manager.isCustomHoeTwo(Material.NETHER_WART, handItem)) {
             for(Item droppedItem : e.getItems()) {
                 droppedItem.remove();
             }
@@ -72,25 +63,20 @@ public class NetherWartBreakEvent implements Listener {
             Ageable ageable = (Ageable) e.getBlockState().getBlockData();
             ageable.setAge(0);
 
-            new BukkitRunnable() {
-                public void run() {
-                    e.getBlock().setType(Material.NETHER_WART);
-                    e.getBlock().setBlockData(ageable);
-                }
-            }.runTaskLater(PlentifulHarvest.INSTANCE, 1);
+            manager.replantLater(e.getBlock(), Material.NETHER_WART, ageable);
         }
         
         if (rand != jackpot) return;
         
         e.getPlayer().sendMessage(ChatColor.DARK_AQUA + "You harvested a Warped Nether Wart!");
-        List<String> netherWartLore = new ArrayList<>();
-        netherWartLore.add(ChatColor.GRAY + "Like a four leaf clover, found very rarely.");
-        ItemStack superCrop = manager.makeSuperCrop(ChatColor.DARK_AQUA + "Warped Nether Wart",Material.NETHER_WART,netherWartLore,1);
+        List<String> lore = new ArrayList<>();
+        lore.add(ChatColor.GRAY + "Like a four leaf clover, found very rarely.");
+        ItemStack superCrop = manager.makeSuperCrop(ChatColor.DARK_AQUA + "Warped Nether Wart", Material.NETHER_WART, lore, 1);
 
-        if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 5 || handItem.getItemMeta().getCustomModelData() == 105)) {
+        if(manager.isCustomHoeOne(Material.NETHER_WART, handItem)) {
             manager.giveSuperCrop(e.getPlayer(), superCrop, e);
         } else{
-            Item superCropItem = e.getItems().get(0).getWorld().dropItem(e.getItems().get(0).getLocation(),superCrop);
+            Item superCropItem = e.getItems().get(0).getWorld().dropItem(e.getItems().get(0).getLocation(), superCrop);
             superCropItem.setGlowing(true);
         }
     }

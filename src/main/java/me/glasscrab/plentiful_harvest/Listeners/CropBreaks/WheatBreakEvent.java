@@ -1,7 +1,7 @@
 package me.glasscrab.plentiful_harvest.Listeners.CropBreaks;
 
 import me.glasscrab.plentiful_harvest.Manager;
-import me.glasscrab.plentiful_harvest.Plentiful_harvest;
+import me.glasscrab.plentiful_harvest.PlentifulHarvest;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Container;
@@ -70,7 +70,7 @@ public class WheatBreakEvent implements Listener {
                         e.getBlock().setType(Material.WHEAT);
                         e.getBlock().setBlockData(ageable);
                     }
-                }.runTaskLater(Plentiful_harvest.plentiful_harvest, 1);
+                }.runTaskLater(PlentifulHarvest.INSTANCE, 1);
             } else if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 101) {
                 for(Item droppedItem : e.getItems()) {
                     droppedItem.remove();
@@ -84,7 +84,7 @@ public class WheatBreakEvent implements Listener {
                         e.getBlock().setType(Material.WHEAT);
                         e.getBlock().setBlockData(ageable);
                     }
-                }.runTaskLater(Plentiful_harvest.plentiful_harvest, 1);
+                }.runTaskLater(PlentifulHarvest.INSTANCE, 1);
             }
             
             if(rand != jackpot) return;

@@ -7,16 +7,21 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class AnimalFeedEvent implements Listener {
-    
+
     @EventHandler
     public void feedAnimal(PlayerInteractEntityEvent e) {
         if(!(e.getRightClicked() instanceof Breedable)) return;
         ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
         ItemStack offhand = e.getPlayer().getInventory().getItemInOffHand();
 
-        if((hand != null && hand.getItemMeta() != null && hand.getItemMeta().hasCustomModelData() && hand.getItemMeta().getCustomModelData() == 1) || offhand != null && offhand.getItemMeta() != null && offhand.getItemMeta().hasCustomModelData() && offhand.getItemMeta().getCustomModelData() == 1) {
+        if(isSpeicalCrop(hand) || isSpeicalCrop(offhand)) {
             e.setCancelled(true);
         }
     }
 
+    private boolean isSpeicalCrop(ItemStack item) {
+        return (item.getItemMeta() != null &&
+                item.getItemMeta().hasCustomModelData() &&
+                item.getItemMeta().getCustomModelData() == 1);
+    }
 }

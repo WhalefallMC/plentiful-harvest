@@ -9,7 +9,7 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Plentiful_harvest</name>
+    <name>PlentifulHarvest</name>
 
     <description>Farming plugin for sootsmp</description>
     <properties>

@@ -5,13 +5,13 @@ import me.glasscrab.plentiful_harvest.Listeners.AnimalFeedEvent;
 import me.glasscrab.plentiful_harvest.Listeners.FarmlandTrampleEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Plentiful_harvest extends JavaPlugin {
+public final class PlentifulHarvest extends JavaPlugin {
 
-    public static Plentiful_harvest plentiful_harvest;
+    public static PlentifulHarvest INSTANCE;
     @Override
     public void onEnable() {
         Manager manager = new Manager();
-        plentiful_harvest = this;
+        INSTANCE = this;
         
         this.getServer().getPluginManager().registerEvents(new WheatBreakEvent(manager), this);
         this.getServer().getPluginManager().registerEvents(new CarrotBreakEvent(manager), this);

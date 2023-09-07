@@ -1,11 +1,14 @@
 package me.glasscrab.plentiful_harvest;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
@@ -51,5 +54,80 @@ public class Manager {
             droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
             player.getInventory().addItem(droppedItem.getItemStack());
         }
+    }
+
+    private int getFirstCustomData(Material cropType) {
+        switch (cropType) {
+            case WHEAT:
+                return 1;
+            case CARROTS:
+                return 2;
+            case POTATOES:
+                return 3;
+            case BEETROOTS:
+                return 4;
+            case NETHER_WART:
+                return 5;
+            default:
+                return 0;
+        }
+    }
+
+    private int getSecondCustomModelData(Material cropType) {
+        switch (cropType) {
+            case WHEAT:
+                return 101;
+            case CARROTS:
+                return 102;
+            case POTATOES:
+                return 103;
+            case BEETROOTS:
+                return 104;
+            case NETHER_WART:
+                return 105;
+            default:
+                return 0;
+        }
+    }
+
+    public boolean isCustomHoe(ItemStack item, Material cropType) {
+        int customData1 = getFirstCustomData(cropType);
+        int customData2 = getSecondCustomModelData(cropType);
+
+        return item.getType().equals(Material.WOODEN_HOE) &&
+                item.getItemMeta() != null &&
+                (item.getItemMeta().getCustomModelData() == customData1 ||
+                        item.getItemMeta().getCustomModelData() == customData2
+                );
+    }
+
+    public void replant(Block block, Material cropType, BlockData age, List<Item> droppedItems) {
+        block.setType(cropType);
+        block.setBlockData(age);
+
+        for(Item droppedItem : droppedItems){
+            droppedItem.remove();
+        }
+    }
+
+    public boolean isCustomHoeOne(Material cropType, ItemStack hoe) {
+        return hoe.getType().equals(Material.WOODEN_HOE) &&
+                hoe.getItemMeta() != null &&
+                hoe.getItemMeta().getCustomModelData() == getFirstCustomData(cropType);
+    }
+
+    public boolean isCustomHoeTwo(Material cropType, ItemStack hoe) {
+        return hoe.getType().equals(Material.WOODEN_HOE) &&
+                hoe.getItemMeta() != null &&
+                hoe.getItemMeta().getCustomModelData() == getSecondCustomModelData(cropType);
+    }
+
+    public void replantLater(Block block, Material cropType, BlockData age) {
+        new BukkitRunnable() {
+            public void run() {
+                block.setType(cropType);
+                block.setBlockData(age);
+            }
+        }.runTaskLater(PlentifulHarvest.INSTANCE, 1);
     }
 }

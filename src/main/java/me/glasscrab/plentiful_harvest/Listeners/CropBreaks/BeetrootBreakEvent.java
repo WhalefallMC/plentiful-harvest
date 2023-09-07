@@ -1,7 +1,6 @@
 package me.glasscrab.plentiful_harvest.Listeners.CropBreaks;
 
 import me.glasscrab.plentiful_harvest.Manager;
-import me.glasscrab.plentiful_harvest.Plentiful_harvest;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Container;
@@ -11,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +31,11 @@ public class BeetrootBreakEvent implements Listener {
         if(age.getAge() != age.getMaximumAge()) {
             ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
             
-            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 4 || handItem.getItemMeta().getCustomModelData() == 104)) {
-                e.getBlock().setType(Material.BEETROOTS);
-                e.getBlock().setBlockData(age);
-                
-                for(Item droppedItem : e.getItems()) {
-                    droppedItem.remove();
-                }
+            if(!manager.isCustomHoe(handItem, Material.BEETROOT)) {
                 return;
             }
+
+            manager.replant(e.getBlock(), Material.NETHER_WART, age, e.getItems());
             return;
         }
 
@@ -54,7 +48,7 @@ public class BeetrootBreakEvent implements Listener {
             int jackpot = 256;
 
             ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
-            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 4) {
+            if(manager.isCustomHoeOne(Material.BEETROOT, handItem)) {
                 for(Item droppedItem : e.getItems()) {
                     droppedItem.remove();
                     if(droppedItem.getItemStack().getType().equals(Material.BEETROOT_SEEDS)) {
@@ -67,13 +61,8 @@ public class BeetrootBreakEvent implements Listener {
                 Ageable ageable = (Ageable) e.getBlockState().getBlockData();
                 ageable.setAge(0);
 
-                new BukkitRunnable() {
-                    public void run() {
-                        e.getBlock().setType(Material.BEETROOTS);
-                        e.getBlock().setBlockData(ageable);
-                    }
-                }.runTaskLater(Plentiful_harvest.plentiful_harvest, 1);
-            } else if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && handItem.getItemMeta().getCustomModelData() == 104) {
+                manager.replantLater(e.getBlock(), Material.BEETROOTS, ageable);
+            } else if(manager.isCustomHoeTwo(Material.BEETROOT, handItem)) {
                 for(Item droppedItem : e.getItems()){
                     droppedItem.remove();
                 }
@@ -81,25 +70,20 @@ public class BeetrootBreakEvent implements Listener {
                 Ageable ageable = (Ageable) e.getBlockState().getBlockData();
                 ageable.setAge(0);
 
-                new BukkitRunnable() {
-                    public void run() {
-                        e.getBlock().setType(Material.BEETROOTS);
-                        e.getBlock().setBlockData(ageable);
-                    }
-                }.runTaskLater(Plentiful_harvest.plentiful_harvest, 1);
+                manager.replantLater(e.getBlock(), Material.BEETROOTS, ageable);
             }
             
             if(rand != jackpot) return;
             
             e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "You harvested a Mystic Beetroot!");
-            List<String> beetrootLore = new ArrayList<>();
-            beetrootLore.add(ChatColor.GRAY + "A beetroot so old it's been infused with magic.");
-            ItemStack superCrop = manager.makeSuperCrop(ChatColor.LIGHT_PURPLE+ "Mystic Beetroot",Material.BEETROOT,beetrootLore,1);
+            List<String> lore = new ArrayList<>();
+            lore.add(ChatColor.GRAY + "A beetroot so old it's been infused with magic.");
+            ItemStack superCrop = manager.makeSuperCrop(ChatColor.LIGHT_PURPLE+ "Mystic Beetroot", Material.BEETROOT, lore, 1);
 
-            if(handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 4 || handItem.getItemMeta().getCustomModelData() == 104)) {
+            if(manager.isCustomHoe(handItem, Material.BEETROOT)) {
                 manager.giveSuperCrop(e.getPlayer(), superCrop, e);
             } else {
-                Item superCropItem = e.getItems().get(0).getWorld().dropItem(e.getItems().get(0).getLocation(),superCrop);
+                Item superCropItem = e.getItems().get(0).getWorld().dropItem(e.getItems().get(0).getLocation(), superCrop);
                 superCropItem.setGlowing(true);
             }
         }

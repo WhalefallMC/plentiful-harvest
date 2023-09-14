@@ -78,7 +78,7 @@ public class BeetrootBreakEvent implements Listener {
             e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "You harvested a Mystic Beetroot!");
             List<String> lore = new ArrayList<>();
             lore.add(ChatColor.GRAY + "A beetroot so old it's been infused with magic.");
-            ItemStack superCrop = manager.makeSuperCrop(ChatColor.LIGHT_PURPLE+ "Mystic Beetroot", Material.BEETROOT, lore, 1);
+            ItemStack superCrop = manager.makeSuperCrop(ChatColor.LIGHT_PURPLE+ "Mystic Beetroot", Material.BEETROOT, lore, 1, 1);
 
             if(manager.isCustomHoe(handItem, Material.BEETROOT)) {
                 manager.giveSuperCrop(e.getPlayer(), superCrop, e);

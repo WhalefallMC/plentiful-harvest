@@ -71,7 +71,7 @@ public class NetherWartBreakEvent implements Listener {
         e.getPlayer().sendMessage(ChatColor.DARK_AQUA + "You harvested a Warped Nether Wart!");
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.GRAY + "Like a four leaf clover, found very rarely.");
-        ItemStack superCrop = manager.makeSuperCrop(ChatColor.DARK_AQUA + "Warped Nether Wart", Material.NETHER_WART, lore, 1);
+        ItemStack superCrop = manager.makeSuperCrop(ChatColor.DARK_AQUA + "Warped Nether Wart", Material.NETHER_WART, lore, 1, 1);
 
         if(manager.isCustomHoeOne(Material.NETHER_WART, handItem)) {
             manager.giveSuperCrop(e.getPlayer(), superCrop, e);

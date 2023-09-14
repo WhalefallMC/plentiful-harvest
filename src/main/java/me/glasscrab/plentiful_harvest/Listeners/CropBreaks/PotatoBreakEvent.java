@@ -70,7 +70,7 @@ public class PotatoBreakEvent implements Listener {
         e.getPlayer().sendMessage(ChatColor.GREEN + "You harvested a Medicinal Potato!");
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.GRAY + "Opposite to the poisonous potato, and much rarer.");
-        ItemStack superCrop = manager.makeSuperCrop(ChatColor.GREEN + "Medicinal Potato", Material.POTATO, lore, 1);
+        ItemStack superCrop = manager.makeSuperCrop(ChatColor.GREEN + "Medicinal Potato", Material.POTATO, lore, 1, 1);
 
         if(manager.isCustomHoe(handItem, Material.POTATO)) {
             manager.giveSuperCrop(e.getPlayer(), superCrop, e);

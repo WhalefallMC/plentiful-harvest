@@ -13,8 +13,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.List;
 
 public class Manager {
-    public ItemStack makeSuperCrop(String name, Material material, List<String> lore, int customModelData) {
-        ItemStack superCropItem = new ItemStack(material, 1);
+    private static Manager manager;
+
+    public Manager() {
+        manager = this;
+    }
+    public ItemStack makeSuperCrop(String name, Material material, List<String> lore, int customModelData, int amount) {
+        ItemStack superCropItem = new ItemStack(material, amount);
         ItemMeta superCropItemMeta = superCropItem.getItemMeta();
 
         if(superCropItemMeta == null) {
@@ -57,37 +62,25 @@ public class Manager {
     }
 
     private int getFirstCustomData(Material cropType) {
-        switch (cropType) {
-            case WHEAT:
-                return 1;
-            case CARROTS:
-                return 2;
-            case POTATOES:
-                return 3;
-            case BEETROOTS:
-                return 4;
-            case NETHER_WART:
-                return 5;
-            default:
-                return 0;
-        }
+        return switch (cropType) {
+            case WHEAT -> 1;
+            case CARROTS -> 2;
+            case POTATOES -> 3;
+            case BEETROOTS -> 4;
+            case NETHER_WART -> 5;
+            default -> 0;
+        };
     }
 
     private int getSecondCustomModelData(Material cropType) {
-        switch (cropType) {
-            case WHEAT:
-                return 101;
-            case CARROTS:
-                return 102;
-            case POTATOES:
-                return 103;
-            case BEETROOTS:
-                return 104;
-            case NETHER_WART:
-                return 105;
-            default:
-                return 0;
-        }
+        return switch (cropType) {
+            case WHEAT -> 101;
+            case CARROTS -> 102;
+            case POTATOES -> 103;
+            case BEETROOTS -> 104;
+            case NETHER_WART -> 105;
+            default -> 0;
+        };
     }
 
     public boolean isCustomHoe(ItemStack item, Material cropType) {
@@ -129,5 +122,9 @@ public class Manager {
                 block.setBlockData(age);
             }
         }.runTaskLater(PlentifulHarvest.INSTANCE, 1);
+    }
+
+    public static Manager getManager() {
+        return manager;
     }
 }

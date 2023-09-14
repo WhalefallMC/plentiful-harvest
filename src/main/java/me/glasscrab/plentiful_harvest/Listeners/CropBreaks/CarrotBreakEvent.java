@@ -70,7 +70,7 @@ public class CarrotBreakEvent implements Listener {
         e.getPlayer().sendMessage(ChatColor.GOLD + "You harvested a Hyper Carrot!");
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.GRAY + "A single one could feed 100 horses.");
-        ItemStack superCrop = manager.makeSuperCrop(ChatColor.GOLD + "Hyper Carrot", Material.CARROT, lore, 1);
+        ItemStack superCrop = manager.makeSuperCrop(ChatColor.GOLD + "Hyper Carrot", Material.CARROT, lore, 1, 1);
 
         if(manager.isCustomHoe(handItem, Material.CARROT)) {
             manager.giveSuperCrop(e.getPlayer(), superCrop, e);

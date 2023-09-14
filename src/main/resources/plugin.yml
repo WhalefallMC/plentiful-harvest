@@ -4,3 +4,8 @@ main: me.glasscrab.plentiful_harvest.PlentifulHarvest
 api-version: 1.20
 authors: [ glasscrab, JamieIsGeek ]
 description: Farming plugin for sootsmp
+
+commands:
+  givecrop:
+    usage: /<command> <crop> <player> <amount>
+    default: op

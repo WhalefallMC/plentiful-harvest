@@ -92,7 +92,7 @@ public class WheatBreakEvent implements Listener {
             e.getPlayer().sendMessage(ChatColor.YELLOW + "You harvested a bundle of Whole Wheat!");
             List<String> wheatLore = new ArrayList<>();
             wheatLore.add(ChatColor.GRAY + "A whole lot better than the other kind.");
-            ItemStack superCrop = manager.makeSuperCrop(ChatColor.YELLOW + "Whole Wheat",Material.WHEAT,wheatLore,1);
+            ItemStack superCrop = manager.makeSuperCrop(ChatColor.YELLOW + "Whole Wheat",Material.WHEAT,wheatLore,1, 1);
 
             if (handItem.getType().equals(Material.WOODEN_HOE) && handItem.getItemMeta() != null && (handItem.getItemMeta().getCustomModelData() == 1 || handItem.getItemMeta().getCustomModelData() == 101)) {
                 manager.giveSuperCrop(e.getPlayer(), superCrop, e);

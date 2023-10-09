@@ -14,11 +14,7 @@ public final class PlentifulHarvest extends JavaPlugin {
         Manager manager = new Manager();
         INSTANCE = this;
         
-        this.getServer().getPluginManager().registerEvents(new WheatBreakEvent(manager), this);
-        this.getServer().getPluginManager().registerEvents(new CarrotBreakEvent(manager), this);
-        this.getServer().getPluginManager().registerEvents(new PotatoBreakEvent(manager), this);
-        this.getServer().getPluginManager().registerEvents(new BeetrootBreakEvent(manager), this);
-        this.getServer().getPluginManager().registerEvents(new NetherWartBreakEvent(manager), this);
+        this.getServer().getPluginManager().registerEvents(new CropBreakEvent(manager), this);
         this.getServer().getPluginManager().registerEvents(new FarmlandTrampleEvent(), this);
         this.getServer().getPluginManager().registerEvents(new AnimalFeedEvent(), this);
 

@@ -58,13 +58,21 @@ public class Manager {
         }
     }
 
+    public boolean isOldHoe(ItemStack item){
+        if(!item.getType().equals(Material.WOODEN_HOE)) return false;
+        if(!item.hasItemMeta()) return false;
+        if(item.getItemMeta() == null) return false;
+        if(!item.getItemMeta().hasCustomModelData()) return false;
+        return item.getItemMeta().getCustomModelData() < 106 && item.getItemMeta().getCustomModelData() > 0;
+    }
+
     public boolean isCropSeed(Material cropSeedType){
         Set<Material> seedItems = new HashSet<>();
         seedItems.add(Material.WHEAT_SEEDS);
         seedItems.add(Material.BEETROOT_SEEDS);
-        seedItems.add(Material.CARROTS);
+        seedItems.add(Material.CARROT);
         seedItems.add(Material.NETHER_WART);
-        seedItems.add(Material.POTATOES);
+        seedItems.add(Material.POTATO);
         return seedItems.contains(cropSeedType);
     }
 
@@ -94,7 +102,7 @@ public class Manager {
             case WHEAT -> "A whole lot better than the other kind.";
             case CARROTS -> "A single one could feed 100 horses.";
             case POTATOES -> "Opposite to the poisonous potato, and much rarer.";
-            case BEETROOTS -> "A whole lot better than the other kind.";
+            case BEETROOTS -> "A beetroot so old it's been infused with magic.";
             case NETHER_WART -> "Like a four leaf clover, found very rarely.";
             default -> "Dm me if u got this item";
         };
@@ -117,7 +125,7 @@ public class Manager {
             case CARROTS -> ChatColor.GOLD+"You uprooted a Hyper Carrot!";
             case POTATOES -> ChatColor.GREEN+"You dug up a Medicinal Potato!";
             case BEETROOTS -> ChatColor.LIGHT_PURPLE+"You felt the aura of a Mystic Beetroot!";
-            case NETHER_WART -> ChatColor.DARK_AQUA+"You spotted a Warped Nether Wart!";
+            case NETHER_WART -> ChatColor.DARK_AQUA+"You uncovered a Warped Nether Wart!";
             default -> ChatColor.GRAY+"Error Crop Message";
         };
     }

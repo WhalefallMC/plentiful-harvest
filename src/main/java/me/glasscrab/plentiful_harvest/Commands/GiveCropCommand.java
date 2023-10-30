@@ -56,7 +56,7 @@ public class GiveCropCommand implements CommandExecutor {
             case "beetroot" -> {
                 List<String> lore = new ArrayList<>();
                 lore.add(ChatColor.GRAY + "A beetroot so old it's been infused with magic.");
-                superCrop = Manager.getManager().makeSuperCrop(ChatColor.GOLD + "Mystic Beetroot", Material.BEETROOT, lore, 1, amount);
+                superCrop = Manager.getManager().makeSuperCrop(ChatColor.LIGHT_PURPLE + "Mystic Beetroot", Material.BEETROOT, lore, 1, amount);
             }
 
             case "potato" -> {
@@ -74,7 +74,7 @@ public class GiveCropCommand implements CommandExecutor {
             case "wheat" -> {
                 List<String> lore = new ArrayList<>();
                 lore.add(ChatColor.GRAY + "A whole lot better than the other kind.");
-                Manager.getManager().makeSuperCrop(ChatColor.YELLOW + "Whole Wheat", Material.WHEAT, lore, 1, amount);
+                superCrop = Manager.getManager().makeSuperCrop(ChatColor.YELLOW + "Whole Wheat", Material.WHEAT, lore, 1, amount);
             }
         }
 

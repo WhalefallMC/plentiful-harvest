@@ -7,7 +7,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockDropItemEvent;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -39,29 +38,25 @@ public class Manager {
     }
 
     public boolean isFull(Player player) {
-        for (ItemStack checkItem : player.getInventory().getStorageContents()) {
-            if(checkItem == null) return false;
-            else if(checkItem.getItemMeta() == null) return false;
-        }
-
-        return true;
+        //Returns -1 if the inventory is full
+        return player.getInventory().firstEmpty() == -1;
     }
 
     public void giveSuperCrop(Player player, ItemStack superCrop) {
-        if (player.getInventory().firstEmpty() != -1) { //Returns -1 if the inventory is full
-            player.getInventory().addItem(superCrop);
+        if (isFull(player)) {
+            player.getWorld().dropItem(player.getLocation(), superCrop);//Drops to world
             return;
         }
-        player.getWorld().dropItem(player.getLocation(), superCrop);
+        player.getInventory().addItem(superCrop); // Gives item to player inventory
     }
 
-    public void giveDroppedItems(Player player, List<Item> droppedItems) {
+    /*public void giveDroppedItems(Player player, List<Item> droppedItems) {
         for(Item droppedItem : droppedItems) {
             droppedItem.remove();
             droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
             player.getInventory().addItem(droppedItem.getItemStack());
         }
-    }
+    }*/
 
     public boolean isOldHoe(ItemStack item){
         if(!item.getType().equals(Material.WOODEN_HOE)) return false;

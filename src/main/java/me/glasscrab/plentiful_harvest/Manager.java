@@ -7,6 +7,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockDropItemEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -47,7 +48,11 @@ public class Manager {
     }
 
     public void giveSuperCrop(Player player, ItemStack superCrop) {
-        player.getInventory().addItem(superCrop);
+        if (player.getInventory().firstEmpty() != -1) { //Returns -1 if the inventory is full
+            player.getInventory().addItem(superCrop);
+            return;
+        }
+        player.getWorld().dropItem(player.getLocation(), superCrop);
     }
 
     public void giveDroppedItems(Player player, List<Item> droppedItems) {

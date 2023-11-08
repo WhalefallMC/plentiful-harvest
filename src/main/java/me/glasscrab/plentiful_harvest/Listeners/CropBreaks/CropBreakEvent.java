@@ -9,6 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Container;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
@@ -27,6 +28,7 @@ public class CropBreakEvent implements Listener {
     @EventHandler
     public void onCropBreak(BlockDropItemEvent e) {
         if(e.getItems().isEmpty()) return;
+        Player player = e.getPlayer();
 
         if(!manager.isCropBlock(e.getBlockState().getType())) return;
         if(e.getBlockState() instanceof Container) return;
@@ -34,7 +36,7 @@ public class CropBreakEvent implements Listener {
         Ageable age = (Ageable) e.getBlockState().getBlockData();
 
         if(age.getAge() != age.getMaximumAge()) {
-            ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
+            ItemStack handItem = player.getInventory().getItemInMainHand();
 
             if(!manager.isCustomHoe(handItem)) {
                 return;
@@ -44,9 +46,9 @@ public class CropBreakEvent implements Listener {
             return;
         }
 
-        if(manager.isFull(e.getPlayer())){
-            e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED+"YOUR INVENTORY IS FULL! YOU CANNOT COLLECT SUPER CROPS!"));
-            e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_BELL_USE, 0.6f, 1);
+        if(manager.isFull(player)){
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED+"YOUR INVENTORY IS FULL! YOU CANNOT COLLECT SUPER CROPS!"));
+            player.playSound(player, Sound.BLOCK_BELL_USE, 0.6f, 1);
         }
 
         for (Item dropItem : e.getItems()) {
@@ -54,7 +56,7 @@ public class CropBreakEvent implements Listener {
             int rand = (int) (Math.random() * chance) + 1;
             int jackpot = 256;
 
-            ItemStack handItem = e.getPlayer().getInventory().getItemInMainHand();
+            ItemStack handItem = player.getInventory().getItemInMainHand();
             if(manager.isCustomHoeOne(handItem)) {
                 for(Item droppedItem : e.getItems()) {
                     droppedItem.remove();
@@ -62,14 +64,15 @@ public class CropBreakEvent implements Listener {
                         droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
                     }
 
-                    e.getPlayer().getInventory().addItem(droppedItem.getItemStack());
+                    player.getInventory().addItem(droppedItem.getItemStack());
                 }
 
                 Ageable ageable = (Ageable) e.getBlockState().getBlockData();
                 ageable.setAge(0);
 
                 manager.replantLater(e.getBlock(), e.getBlockState().getType(), ageable);
-            } else if(manager.isCustomHoeTwo(handItem)) {
+            }
+            else if(manager.isCustomHoeTwo(handItem)) {
                 for(Item droppedItem : e.getItems()){
                     droppedItem.remove();
                 }
@@ -82,13 +85,13 @@ public class CropBreakEvent implements Listener {
 
             if(rand != jackpot) return;
 
-            e.getPlayer().sendMessage(manager.cropBlockMessage(e.getBlockState().getType()));
+            player.sendMessage(manager.cropBlockMessage(e.getBlockState().getType()));
             List<String> lore = new ArrayList<>();
             lore.add(ChatColor.GRAY + manager.cropBlockLore(e.getBlockState().getType()));
             ItemStack superCrop = manager.makeSuperCrop(manager.cropBlockName(e.getBlockState().getType()), manager.cropBlockToItem(e.getBlockState().getType()), lore, 1, 1);
 
             if(manager.isCustomHoe(handItem)) {
-                manager.giveSuperCrop(e.getPlayer(), superCrop);
+                manager.giveSuperCrop(player, superCrop);
             } else {
                 Item superCropItem = e.getItems().get(0).getWorld().dropItem(e.getItems().get(0).getLocation(), superCrop);
                 superCropItem.setGlowing(true);

@@ -83,7 +83,12 @@ public class GiveCropCommand implements CommandExecutor {
             return true;
         }
 
-        player.getInventory().addItem(superCrop);
+        if (target.getInventory().firstEmpty() != -1) {
+            target.getInventory().addItem(superCrop);
+        }
+        else{
+            target.getWorld().dropItem(player.getLocation(), superCrop);
+        }
         player.sendMessage(ChatColor.GREEN + "You gave " + target.getName() + " " + amount + " " + crop + " super crops.");
 
         return true;

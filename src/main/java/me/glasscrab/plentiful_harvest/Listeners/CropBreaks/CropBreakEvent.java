@@ -71,8 +71,7 @@ public class CropBreakEvent implements Listener {
                 ageable.setAge(0);
 
                 manager.replantLater(e.getBlock(), e.getBlockState().getType(), ageable);
-            }
-            else if(manager.isCustomHoeTwo(handItem)) {
+            } else if(manager.isCustomHoeTwo(handItem)) {
                 for(Item droppedItem : e.getItems()){
                     droppedItem.remove();
                 }

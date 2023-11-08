@@ -50,14 +50,6 @@ public class Manager {
         player.getInventory().addItem(superCrop); // Gives item to player inventory
     }
 
-    /*public void giveDroppedItems(Player player, List<Item> droppedItems) {
-        for(Item droppedItem : droppedItems) {
-            droppedItem.remove();
-            droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
-            player.getInventory().addItem(droppedItem.getItemStack());
-        }
-    }*/
-
     public boolean isOldHoe(ItemStack item){
         if(!item.getType().equals(Material.WOODEN_HOE)) return false;
         if(!item.hasItemMeta()) return false;

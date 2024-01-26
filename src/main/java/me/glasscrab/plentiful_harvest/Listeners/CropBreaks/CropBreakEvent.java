@@ -4,7 +4,6 @@ import me.glasscrab.plentiful_harvest.Manager;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Container;
 import org.bukkit.block.data.Ageable;
@@ -36,17 +35,16 @@ public class CropBreakEvent implements Listener {
         if(!manager.isCropBlock(event.getBlockState().getType())) return; // If the block is not a crop block, return
         if(event.getBlockState() instanceof Container) return; // If the block is a container, return
 
-        Ageable age = (Ageable) e.getBlockState().getBlockData();
+        Ageable age = (Ageable) event.getBlockState().getBlockData();
 
         // If the crop is fully grown and is harvested by a custom hoe, replant the crop
-        // return if the crop isnt fully grown or if the crop is harvested by a non-custom hoe
+        // return if the crop isn't fully grown or if the crop is harvested by a non-custom hoe
         if(age.getAge() != age.getMaximumAge()) {
             ItemStack handItem = player.getInventory().getItemInMainHand();
 
             if(!manager.isCustomHoe(handItem)) {
                 return;
             }
-
             manager.replant(event.getBlock(), event.getBlockState().getType(), age, event.getItems());
             return;
         }
@@ -57,30 +55,36 @@ public class CropBreakEvent implements Listener {
             player.playSound(player, Sound.BLOCK_BELL_USE, 0.6f, 1);
         }
 
-
-        for (Item dropItem : event.getItems()) {
+        for (int i = 0; i < event.getItems().size(); i++) {
             // Chance to get a super crop
             int chance = 300;
             int rand = (int) (Math.random() * chance) + 1;
             int jackpot = 256;
 
-            ItemStack handItem = player.getInventory().getItemInMainHand();
+            // Item replanting whether the player got the jackpot for a super crop
+            ItemStack handItem = player.getInventory().getItemInMainHand(); // Get the item in the player's main hand (usually the hoe)
             if(manager.isCustomHoeOne(handItem)) {
                 for(Item droppedItem : event.getItems()) {
-                    droppedItem.remove();
+                    droppedItem.remove(); //Remove dropped items from the world that were harvested
                     if(manager.isCropSeed(droppedItem.getItemStack().getType())) {
+                        //If the item is a crop that uses seeds, drop 1 less seed
                         droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
                     }
-
+                    //Give the player the dropped items.
                     player.getInventory().addItem(droppedItem.getItemStack());
                 }
-
+                //Set the age of the crop to 0 as it has been replanted
                 Ageable ageable = (Ageable) event.getBlockState().getBlockData();
                 ageable.setAge(0);
 
+                //Replant the crop
                 manager.replantLater(event.getBlock(), event.getBlockState().getType(), ageable);
-            } else if(manager.isCustomHoeTwo(handItem)) {
-                for(Item droppedItem : event.getItems()){
+            }
+
+            // If the player is using a custom hoe, remove the dropped items and replant the crop
+            // Same comments as previous, but without the seed dropping
+            else if(manager.isCustomHoeTwo(handItem)) {
+                for (Item droppedItem : event.getItems()) {
                     droppedItem.remove();
                 }
 
@@ -90,16 +94,21 @@ public class CropBreakEvent implements Listener {
                 manager.replantLater(event.getBlock(), event.getBlockState().getType(), ageable);
             }
 
-            if(rand != jackpot) return;
+            if(rand != jackpot) return; // If the random number is not the jackpot, return
 
+            // If the player got the jackpot...
             player.sendMessage(manager.cropBlockMessage(event.getBlockState().getType()));
             List<String> lore = new ArrayList<>();
             lore.add(ChatColor.GRAY + manager.cropBlockLore(event.getBlockState().getType()));
+            // Create a super crop
             ItemStack superCrop = manager.makeSuperCrop(manager.cropBlockName(event.getBlockState().getType()), manager.cropBlockToItem(event.getBlockState().getType()), lore, 1, 1);
 
+            // Give the player the super crop if they are using a custom hoe
             if(manager.isCustomHoe(handItem)) {
                 manager.giveSuperCrop(player, superCrop);
-            } else {
+            }
+            // Drop the super crop if the player is not using a custom hoe
+            else {
                 Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
                 superCropItem.setGlowing(true);
             }

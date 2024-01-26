@@ -1,7 +1,10 @@
 package me.glasscrab.plentiful_harvest;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Item;
@@ -13,6 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Manager {
@@ -40,6 +44,23 @@ public class Manager {
     public boolean isFull(Player player) {
         //Returns -1 if the inventory is full
         return player.getInventory().firstEmpty() == -1;
+    }
+
+    public boolean hasRoom(Player player, ItemStack item) {
+        for (ItemStack inventoryItem : player.getInventory().getContents()) {
+            if (isFull(player)) {
+                return false;
+            }
+            else if ((item.hasItemMeta() && inventoryItem.hasItemMeta()) && item.getItemMeta() == inventoryItem.getItemMeta() && inventoryItem.getAmount() < inventoryItem.getMaxStackSize()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void fullIventoryAlert(Player player){
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED+"YOUR INVENTORY IS FULL! YOU CANNOT COLLECT SUPER CROPS!"));
+        player.playSound(player, Sound.BLOCK_BELL_USE, 0.6f, 1);
     }
 
     public void giveSuperCrop(Player player, ItemStack superCrop) {

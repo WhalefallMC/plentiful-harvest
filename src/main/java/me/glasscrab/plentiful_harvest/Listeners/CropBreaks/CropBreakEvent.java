@@ -49,17 +49,14 @@ public class CropBreakEvent implements Listener {
             return;
         }
 
-        // If the player inventory is full, send a message to the player and play a sound
-        if(manager.isFull(player)){
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED+"YOUR INVENTORY IS FULL! YOU CANNOT COLLECT SUPER CROPS!"));
-            player.playSound(player, Sound.BLOCK_BELL_USE, 0.6f, 1);
-        }
 
         for (int i = 0; i < event.getItems().size(); i++) {
             // Chance to get a super crop
             int chance = 300;
             int rand = (int) (Math.random() * chance) + 1;
-            int jackpot = 256;
+            int jackpotNum = 256;
+
+            boolean jackpot = true;//(rand == jackpotNum); // If the random number is the jackpot, set jackpot to true
 
             // Item replanting whether the player got the jackpot for a super crop
             ItemStack handItem = player.getInventory().getItemInMainHand(); // Get the item in the player's main hand (usually the hoe)
@@ -70,8 +67,10 @@ public class CropBreakEvent implements Listener {
                         //If the item is a crop that uses seeds, drop 1 less seed
                         droppedItem.getItemStack().setAmount(droppedItem.getItemStack().getAmount()-1);
                     }
-                    //Give the player the dropped items.
-                    player.getInventory().addItem(droppedItem.getItemStack());
+                    //Give the player the dropped items if they haven't got the jackpot
+                    if (!jackpot) {
+                        player.getInventory().addItem(droppedItem.getItemStack());
+                    }
                 }
                 //Set the age of the crop to 0 as it has been replanted
                 Ageable ageable = (Ageable) event.getBlockState().getBlockData();
@@ -94,7 +93,7 @@ public class CropBreakEvent implements Listener {
                 manager.replantLater(event.getBlock(), event.getBlockState().getType(), ageable);
             }
 
-            if(rand != jackpot) return; // If the random number is not the jackpot, return
+            if(!jackpot) return; // If the random number is not the jackpot, return
 
             // If the player got the jackpot...
             player.sendMessage(manager.cropBlockMessage(event.getBlockState().getType()));
@@ -103,14 +102,24 @@ public class CropBreakEvent implements Listener {
             // Create a super crop
             ItemStack superCrop = manager.makeSuperCrop(manager.cropBlockName(event.getBlockState().getType()), manager.cropBlockToItem(event.getBlockState().getType()), lore, 1, 1);
 
-            // Give the player the super crop if they are using a custom hoe
-            if(manager.isCustomHoe(handItem)) {
-                manager.giveSuperCrop(player, superCrop);
+            if (manager.hasRoom(player, superCrop)) {
+                // Give the player the super crop if they are using a custom hoe
+                if (manager.isCustomHoe(handItem)) {
+                    manager.giveSuperCrop(player, superCrop);
+                    return;
+                }
+                // Drop the super crop if the player is not using a custom hoe
+                else if (!manager.isCustomHoe(handItem)) {
+                    Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
+                    superCropItem.setGlowing(true);
+                    return;
+                }
             }
-            // Drop the super crop if the player is not using a custom hoe
             else {
+                manager.fullIventoryAlert(player);
                 Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
                 superCropItem.setGlowing(true);
+                return;
             }
         }
     }

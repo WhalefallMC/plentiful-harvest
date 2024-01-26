@@ -3,6 +3,7 @@ package me.glasscrab.plentiful_harvest.Listeners.CropBreaks;
 import me.glasscrab.plentiful_harvest.Manager;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.block.Container;
@@ -37,14 +38,12 @@ public class CropBreakEvent implements Listener {
 
         Ageable age = (Ageable) event.getBlockState().getBlockData();
 
-        // If the crop is fully grown and is harvested by a custom hoe, replant the crop
-        // return if the crop isn't fully grown or if the crop is harvested by a non-custom hoe
+        // If the crop is not fully grown and is harvested by a custom hoe, replant the crop
+        // return if the crop is fully grown or if the crop is harvested by a non-custom hoe
         if(age.getAge() != age.getMaximumAge()) {
             ItemStack handItem = player.getInventory().getItemInMainHand();
 
-            if(!manager.isCustomHoe(handItem)) {
-                return;
-            }
+            if(!manager.isCustomHoe(handItem)) return;
             manager.replant(event.getBlock(), event.getBlockState().getType(), age, event.getItems());
             return;
         }
@@ -56,7 +55,7 @@ public class CropBreakEvent implements Listener {
             int rand = (int) (Math.random() * chance) + 1;
             int jackpotNum = 256;
 
-            boolean jackpot = true;//(rand == jackpotNum); // If the random number is the jackpot, set jackpot to true
+            boolean jackpot = (rand == jackpotNum); // If the random number is the jackpot, set jackpot to true
 
             // Item replanting whether the player got the jackpot for a super crop
             ItemStack handItem = player.getInventory().getItemInMainHand(); // Get the item in the player's main hand (usually the hoe)
@@ -102,35 +101,18 @@ public class CropBreakEvent implements Listener {
             // Create a super crop
             ItemStack superCrop = manager.makeSuperCrop(manager.cropBlockName(event.getBlockState().getType()), manager.cropBlockToItem(event.getBlockState().getType()), lore, 1, 1);
 
-            /*if (manager.hasRoom(player, superCrop)) {
-                // Give the player the super crop if they are using a custom hoe
-                if (manager.isCustomHoe(handItem)) {
-                    manager.giveSuperCrop(player, superCrop);
-                    return;
-                }
-                // Drop the super crop if the player is not using a custom hoe
-                else if (!manager.isCustomHoe(handItem)) {
-                    Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
-                    superCropItem.setGlowing(true);
-                    return;
-                }
-            }
-            else {
-                manager.fullInventoryAlert(player);
-                Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
-                superCropItem.setGlowing(true);
-                return;
-            }*/
             if (manager.isCustomHoe(handItem)) {
                 manager.giveSuperCrop(player, superCrop);
                 return;
             }
             // Drop the super crop if the player is not using a custom hoe
-            else if (!manager.isCustomHoe(handItem)) {
-                Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
-                superCropItem.setGlowing(true);
-                return;
+            for (Item droppedItem : event.getItems()) {
+                droppedItem.remove();
             }
+            Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
+            superCropItem.setGlowing(true);
+
+            break;
         }
     }
 }

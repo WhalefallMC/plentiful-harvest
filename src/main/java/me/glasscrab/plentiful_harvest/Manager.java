@@ -141,6 +141,7 @@ public class Manager {
 
         return item.getType().equals(Material.WOODEN_HOE) &&
                 item.getItemMeta() != null &&
+                item.getItemMeta().hasCustomModelData() &&
                 (item.getItemMeta().getCustomModelData() == 2767 ||
                 item.getItemMeta().getCustomModelData() == 2768);
     }
@@ -157,12 +158,14 @@ public class Manager {
     public boolean isCustomHoeOne(ItemStack hoe) {
         return hoe.getType().equals(Material.WOODEN_HOE) &&
                 hoe.getItemMeta() != null &&
+                hoe.getItemMeta().hasCustomModelData() &&
                 hoe.getItemMeta().getCustomModelData() == 2767;
     }
 
     public boolean isCustomHoeTwo(ItemStack hoe) {
         return hoe.getType().equals(Material.WOODEN_HOE) &&
                 hoe.getItemMeta() != null &&
+                hoe.getItemMeta().hasCustomModelData() &&
                 hoe.getItemMeta().getCustomModelData() == 2768;
     }
 

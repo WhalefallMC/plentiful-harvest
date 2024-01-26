@@ -2,6 +2,7 @@ package me.glasscrab.plentiful_harvest;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -14,10 +15,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Manager {
     private static Manager manager;
@@ -46,29 +45,24 @@ public class Manager {
         return player.getInventory().firstEmpty() == -1;
     }
 
-    public boolean hasRoom(Player player, ItemStack item) {
-        for (ItemStack inventoryItem : player.getInventory().getContents()) {
-            if (isFull(player)) {
-                return false;
-            }
-            else if ((item.hasItemMeta() && inventoryItem.hasItemMeta()) && item.getItemMeta() == inventoryItem.getItemMeta() && inventoryItem.getAmount() < inventoryItem.getMaxStackSize()) {
-                return true;
-            }
-        }
-        return false;
+    public ItemStack addInventory(Player player, ItemStack item) {
+        Map<Integer, ItemStack> remaining = player.getInventory().addItem(item);
+        return remaining.isEmpty() ? null : remaining.get(0);
     }
 
-    public void fullIventoryAlert(Player player){
+    public void fullInventoryAlert(Player player){
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED+"YOUR INVENTORY IS FULL! YOU CANNOT COLLECT SUPER CROPS!"));
         player.playSound(player, Sound.BLOCK_BELL_USE, 0.6f, 1);
     }
 
     public void giveSuperCrop(Player player, ItemStack superCrop) {
+        ItemStack item = addInventory(player, superCrop);
+        if (item == null) return;
         if (isFull(player)) {
-            player.getWorld().dropItem(player.getLocation(), superCrop);//Drops to world
-            return;
+            fullInventoryAlert(player);
+            Item superCropItem = player.getWorld().dropItem(player.getLocation(), item);//Drops to world
+            superCropItem.setGlowing(true);
         }
-        player.getInventory().addItem(superCrop); // Gives item to player inventory
     }
 
     public boolean isOldHoe(ItemStack item){

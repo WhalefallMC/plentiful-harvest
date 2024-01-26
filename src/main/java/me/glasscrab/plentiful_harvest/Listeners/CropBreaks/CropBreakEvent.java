@@ -102,7 +102,7 @@ public class CropBreakEvent implements Listener {
             // Create a super crop
             ItemStack superCrop = manager.makeSuperCrop(manager.cropBlockName(event.getBlockState().getType()), manager.cropBlockToItem(event.getBlockState().getType()), lore, 1, 1);
 
-            if (manager.hasRoom(player, superCrop)) {
+            /*if (manager.hasRoom(player, superCrop)) {
                 // Give the player the super crop if they are using a custom hoe
                 if (manager.isCustomHoe(handItem)) {
                     manager.giveSuperCrop(player, superCrop);
@@ -116,7 +116,17 @@ public class CropBreakEvent implements Listener {
                 }
             }
             else {
-                manager.fullIventoryAlert(player);
+                manager.fullInventoryAlert(player);
+                Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
+                superCropItem.setGlowing(true);
+                return;
+            }*/
+            if (manager.isCustomHoe(handItem)) {
+                manager.giveSuperCrop(player, superCrop);
+                return;
+            }
+            // Drop the super crop if the player is not using a custom hoe
+            else if (!manager.isCustomHoe(handItem)) {
                 Item superCropItem = event.getItems().get(0).getWorld().dropItem(event.getItems().get(0).getLocation(), superCrop);
                 superCropItem.setGlowing(true);
                 return;

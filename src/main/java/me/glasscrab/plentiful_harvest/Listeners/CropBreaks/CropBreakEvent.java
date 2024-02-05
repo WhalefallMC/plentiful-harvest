@@ -25,9 +25,11 @@ public class CropBreakEvent implements Listener {
         this.manager = manager;
     }
 
-    /*  Function: When a crop breaks, run the function.
-        Parameters: BlockDropItemEvent e
-        Return: void */
+    /*
+     * When a crop breaks, run the function.
+     * @param event - BlockDropItemEvent
+     * @returns: void
+    */
     @EventHandler
     public void onCropBreak(BlockDropItemEvent event) {
         if(event.getItems().isEmpty()) return; // If there are no items in inventory, return
@@ -47,7 +49,6 @@ public class CropBreakEvent implements Listener {
             manager.replant(event.getBlock(), event.getBlockState().getType(), age, event.getItems());
             return;
         }
-
 
         for (int i = 0; i < event.getItems().size(); i++) {
             // Chance to get a super crop

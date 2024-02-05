@@ -28,7 +28,7 @@ public class CropBreakEvent implements Listener {
     /*
      * When a crop breaks, run the function.
      * @param event - BlockDropItemEvent
-     * @returns: void
+     * @returns void
     */
     @EventHandler
     public void onCropBreak(BlockDropItemEvent event) {

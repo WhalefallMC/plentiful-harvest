@@ -20,7 +20,7 @@ public class OnWarpedPotionConsumeEvent implements Listener {
 
         if(!e.getPlayer().getWorld().isPiglinSafe()){
             e.setCancelled(true);
-            e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED+"You can only drink this in the Nether!"));
+            e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(ChatColor.RED+"You can only drink this in the Nether!"));
         }
     }
 

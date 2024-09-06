@@ -25,9 +25,9 @@ public class OnShiftRightClickPotatoEvent implements Listener {
         if(e.getItem().getItemMeta().getCustomModelData() != 1) return;
 
         e.getPlayer().setHealth(e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-        e.getPlayer().getWorld().spawnParticle(Particle.VILLAGER_HAPPY, e.getPlayer().getEyeLocation(),15,.3,.3,.3);
+        e.getPlayer().getWorld().spawnParticle(Particle.HAPPY_VILLAGER, e.getPlayer().getEyeLocation(),15,.3,.3,.3);
         e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.MASTER, 1,1);
-        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GREEN+"You have been healed!"));
+        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(ChatColor.GREEN+"You have been healed!"));
         e.getItem().setAmount(e.getItem().getAmount()-1);
     }
 }

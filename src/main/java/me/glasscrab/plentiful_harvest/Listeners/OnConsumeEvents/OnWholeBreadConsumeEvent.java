@@ -21,6 +21,6 @@ public class OnWholeBreadConsumeEvent implements Listener {
 
         e.getPlayer().setFoodLevel(20);
         e.getPlayer().setSaturation(20);
-        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.YELLOW+"You feel nourished."));
+        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(ChatColor.YELLOW+"You feel nourished."));
     }
 }

@@ -1,11 +1,7 @@
 package me.glasscrab.plentiful_harvest.Listeners.CropBreaks;
 
 import me.glasscrab.plentiful_harvest.Manager;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.block.Container;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Item;
@@ -50,7 +46,7 @@ public class CropBreakEvent implements Listener {
             return;
         }
 
-        for (int i = 0; i < event.getItems().size(); i++) {
+        for (int i = 0; i < event.getItems().size();) {
             // Chance to get a super crop
             int chance = 300;
             int rand = (int) (Math.random() * chance) + 1;

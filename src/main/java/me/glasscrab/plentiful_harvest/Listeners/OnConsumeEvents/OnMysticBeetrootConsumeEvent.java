@@ -29,6 +29,6 @@ public class OnMysticBeetrootConsumeEvent implements Listener {
                 i.setItemMeta(damageable);
             }
         }
-        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.LIGHT_PURPLE+"The beetroot's aura envelops your tools.."));
+        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(ChatColor.LIGHT_PURPLE+"The beetroot's aura envelops your tools.."));
     }
 }

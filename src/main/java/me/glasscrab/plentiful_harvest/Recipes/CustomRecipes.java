@@ -41,7 +41,7 @@ public class CustomRecipes {
         farmersBootsMeta.setLore(List.of(ChatColor.GRAY+"Wear these and you'll never have", ChatColor.GRAY+"to worry about trampling crops again!"));
         farmersBootsMeta.setCustomModelData(1);
         farmersBootsMeta.setUnbreakable(true);
-        farmersBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, new AttributeModifier(NamespacedKey.minecraft("GENERIC_ARMOR"), 0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET));
+        farmersBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, new AttributeModifier(NamespacedKey.minecraft("generic.armor"), 0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET));
         farmersBootsMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         farmersBootsMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         farmersBootsMeta.addItemFlags(ItemFlag.HIDE_DYE);

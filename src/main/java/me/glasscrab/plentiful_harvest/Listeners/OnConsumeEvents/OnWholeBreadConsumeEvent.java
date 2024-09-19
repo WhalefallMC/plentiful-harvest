@@ -1,14 +1,10 @@
 package me.glasscrab.plentiful_harvest.Listeners.OnConsumeEvents;
 
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-
-import me.glasscrab.plentiful_harvest.PlentifulHarvest;
 
 public class OnWholeBreadConsumeEvent implements Listener {
 
@@ -25,8 +21,6 @@ public class OnWholeBreadConsumeEvent implements Listener {
         e.getPlayer().setSaturation(20);
         
         var miniMessage = MiniMessage.miniMessage();
-        Audience audience = PlentifulHarvest.INSTANCE.audiences.player(e.getPlayer());
-        Component parsedText = miniMessage.deserialize("<yellow>You feel nourished.</yellow>");
-        audience.sendActionBar(parsedText);
+        e.getPlayer().sendActionBar(miniMessage.deserialize("<yellow>You feel nourished.</yellow>"));
     }
 }

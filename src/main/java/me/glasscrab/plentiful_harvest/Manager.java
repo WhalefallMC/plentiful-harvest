@@ -90,9 +90,7 @@ public class Manager {
      * @returns void
      */
     public void fullInventoryAlert(Player player){
-        Audience audience = PlentifulHarvest.INSTANCE.audiences.player(player);
-        Component parsedText = miniMessage.deserialize("<red>YOUR INVENTORY IS FULL! YOU CANNOT COLLECT SUPER CROPS!</red>");
-        audience.sendActionBar(parsedText);
+        player.sendActionBar(miniMessage.deserialize("<red>YOUR INVENTORY IS FULL! YOU CANNOT COLLECT SUPER CROPS!</red>"));
         player.playSound(player, Sound.BLOCK_BELL_USE, 0.6f, 1);
     }
 

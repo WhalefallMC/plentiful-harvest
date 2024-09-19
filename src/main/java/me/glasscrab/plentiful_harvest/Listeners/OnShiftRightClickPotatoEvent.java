@@ -1,7 +1,5 @@
 package me.glasscrab.plentiful_harvest.Listeners;
 
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -10,8 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-
-import me.glasscrab.plentiful_harvest.PlentifulHarvest;
 
 public class OnShiftRightClickPotatoEvent implements Listener {
 
@@ -31,9 +27,7 @@ public class OnShiftRightClickPotatoEvent implements Listener {
         e.getPlayer().getWorld().spawnParticle(Particle.HAPPY_VILLAGER, e.getPlayer().getEyeLocation(),15,.3,.3,.3);
         e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.MASTER, 1,1);
         var miniMessage = MiniMessage.miniMessage();
-        Audience audience = PlentifulHarvest.INSTANCE.audiences.player(e.getPlayer());
-        Component parsedText = miniMessage.deserialize("<green>You have been healed!</green>");
-        audience.sendActionBar(parsedText);
+        e.getPlayer().sendActionBar(miniMessage.deserialize("<green>You have been healed!</green>"));
         e.getItem().setAmount(e.getItem().getAmount()-1);
     }
 }

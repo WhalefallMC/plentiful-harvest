@@ -12,9 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.glasscrab.plentiful_harvest.Manager;
-import me.glasscrab.plentiful_harvest.PlentifulHarvest;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class GiveCropCommand implements CommandExecutor {
@@ -22,24 +19,19 @@ public class GiveCropCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
         var miniMessage = MiniMessage.miniMessage();
-        Audience audience = PlentifulHarvest.INSTANCE.audiences.sender(sender);
-
 
         if(!(sender instanceof Player player)) {
-            Component parsedText = miniMessage.deserialize("<red>You must be a player to use this command.</red>");
-            audience.sendMessage(parsedText);
+            sender.sendMessage(miniMessage.deserialize("<red>You must be a player to use this command.</red>"));
             return true;
         }
 
         if(!player.hasPermission("farming.givecrop")) {
-            Component parsedText = miniMessage.deserialize("<red>You do not have permission to use this command.</red>");
-            audience.sendMessage(parsedText);
+            sender.sendMessage(miniMessage.deserialize("<red>You do not have permission to use this command.</red>"));
             return true;
         }
 
         if(args.length != 3) {
-            Component parsedText = miniMessage.deserialize("<red>Usage: /givecrop <crop> <player> <amount></red>");
-            audience.sendMessage(parsedText);
+            sender.sendMessage(miniMessage.deserialize("<red>Usage: /givecrop <crop> <player> <amount></red>"));
             return true;
         }
 
@@ -48,14 +40,12 @@ public class GiveCropCommand implements CommandExecutor {
         int amount = Integer.parseInt(args[2]);
 
         if(target == null) {
-            Component parsedText = miniMessage.deserialize("<red>Player not found.</red>");
-            audience.sendMessage(parsedText);
+            sender.sendMessage(miniMessage.deserialize("<red>Player not found.</red>"));
             return true;
         }
 
         if(amount < 1) {
-            Component parsedText = miniMessage.deserialize("<red>Amount must be greater than 0.</red>");
-            audience.sendMessage(parsedText);
+            sender.sendMessage(miniMessage.deserialize("<red>Amount must be greater than 0.</red>"));
             return true;
         }
 
@@ -94,14 +84,12 @@ public class GiveCropCommand implements CommandExecutor {
         }
 
         if(superCrop == null) {
-            Component parsedText = miniMessage.deserialize("<red>Invalid crop.</red>");
-            audience.sendMessage(parsedText);
+            sender.sendMessage(miniMessage.deserialize("<red>Invalid crop.</red>"));
             return true;
         }
 
         Manager.getManager().giveSuperCrop(target, superCrop);
-        Component parsedText = miniMessage.deserialize("<green>You gave " + target.getName() + " " + amount + " " + crop + " super crops.</green>");
-        audience.sendMessage(parsedText);
+        sender.sendMessage(miniMessage.deserialize("<green>You gave " + target.getName() + " " + amount + " " + crop + " super crops.</green>"));
 
         return true;
     }

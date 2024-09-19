@@ -64,9 +64,5 @@ public final class PlentifulHarvest extends JavaPlugin {
     @Override
     public void onDisable() {
         this.getLogger().info("Farming plugin has disabled!");
-        if (this.audiences != null){
-            this.audiences.close();
-            this.audiences = null;
-        }
     }
 }

@@ -18,6 +18,7 @@ import java.util.*;
 
 public class Manager {
     private static Manager manager;
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
     private static final Set<Material> seedItems = new HashSet<>();
     private static final Set<Material> cropBlocks = new HashSet<>();
 
@@ -89,7 +90,6 @@ public class Manager {
      * @returns void
      */
     public void fullInventoryAlert(Player player){
-        var miniMessage = MiniMessage.miniMessage();
         Audience audience = PlentifulHarvest.INSTANCE.audiences.player(player);
         Component parsedText = miniMessage.deserialize("<red>YOUR INVENTORY IS FULL! YOU CANNOT COLLECT SUPER CROPS!</red>");
         audience.sendActionBar(parsedText);

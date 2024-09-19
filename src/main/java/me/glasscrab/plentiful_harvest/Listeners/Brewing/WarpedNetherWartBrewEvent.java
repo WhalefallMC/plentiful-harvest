@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffectType;
 
+import net.kyori.adventure.text.minimessage.MiniMessage;
+
 import java.util.List;
 
 public class WarpedNetherWartBrewEvent implements Listener {
@@ -21,11 +23,13 @@ public class WarpedNetherWartBrewEvent implements Listener {
         if(!e.getContents().getIngredient().hasItemMeta()) return;
         if(!e.getContents().getIngredient().getItemMeta().hasCustomModelData()) return;
         if(e.getContents().getIngredient().getItemMeta().getCustomModelData() != 1) return;
+        var miniMessage = MiniMessage.miniMessage();
+
         ItemStack hastePotion = new ItemStack(Material.POTION);
         PotionMeta hastePotionMeta = (PotionMeta) hastePotion.getItemMeta();
         hastePotionMeta.setColor(Color.fromRGB(0,153,153));
-        hastePotionMeta.setDisplayName(ChatColor.WHITE+"Warped Potion");
-        hastePotionMeta.setLore(List.of(ChatColor.BLUE+"Netherborn (2:00)"));
+        hastePotionMeta.itemName(miniMessage.deserialize("<white>Warped Potion</white>"));
+        hastePotionMeta.lore(List.of(miniMessage.deserialize("<blue>Netherborn (2:00)</blue>")));
         hastePotionMeta.setCustomModelData(1);
         hastePotionMeta.addCustomEffect(PotionEffectType.HASTE.createEffect(20*120,1),false);
         hastePotionMeta.addCustomEffect(PotionEffectType.FIRE_RESISTANCE.createEffect(20*120,0),false);

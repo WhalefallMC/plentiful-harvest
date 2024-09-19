@@ -1,7 +1,9 @@
 package me.glasscrab.plentiful_harvest.Listeners.CropBreaks;
 
 import me.glasscrab.plentiful_harvest.Manager;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+
 import org.bukkit.block.Container;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Item;
@@ -35,6 +37,7 @@ public class CropBreakEvent implements Listener {
         if(event.getBlockState() instanceof Container) return; // If the block is a container, return
 
         Ageable age = (Ageable) event.getBlockState().getBlockData();
+        var miniMessage = MiniMessage.miniMessage();
 
         // If the crop is not fully grown and is harvested by a custom hoe, replant the crop
         // return if the crop is fully grown or if the crop is harvested by a non-custom hoe
@@ -93,8 +96,8 @@ public class CropBreakEvent implements Listener {
 
             // If the player got the jackpot...
             player.sendMessage(manager.cropBlockMessage(event.getBlockState().getType()));
-            List<String> lore = new ArrayList<>();
-            lore.add(ChatColor.GRAY + manager.cropBlockLore(event.getBlockState().getType()));
+            List<Component> lore = new ArrayList<>();
+            lore.add(miniMessage.deserialize("<gray>"+manager.cropBlockLore(event.getBlockState().getType())+"</gray>"));
             // Create a super crop
             ItemStack superCrop = manager.makeSuperCrop(manager.cropBlockName(event.getBlockState().getType()), manager.cropBlockToItem(event.getBlockState().getType()), lore, 1, 1);
 

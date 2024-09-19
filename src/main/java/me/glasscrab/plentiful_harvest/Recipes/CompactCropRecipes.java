@@ -1,7 +1,8 @@
 package me.glasscrab.plentiful_harvest.Recipes;
 
 import me.glasscrab.plentiful_harvest.PlentifulHarvest;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -18,9 +19,10 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactWheatSeedsShapedRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack seedsItem = new ItemStack(Material.WHEAT_SEEDS);
         ItemMeta seedsMeta = seedsItem.getItemMeta();
-        seedsMeta.setDisplayName(ChatColor.WHITE+"Pile of Wheat Seeds");
+        seedsMeta.itemName(miniMessage.deserialize("<white>Pile of Wheat Seeds</white>"));
         seedsMeta.setCustomModelData(2);
         seedsItem.setItemMeta(seedsMeta);
 
@@ -34,9 +36,10 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactWheatSeedsShapelessRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack seedsItem = new ItemStack(Material.WHEAT_SEEDS);
         ItemMeta seedsMeta = seedsItem.getItemMeta();
-        seedsMeta.setDisplayName(ChatColor.WHITE+"Pile of Wheat Seeds");
+        seedsMeta.itemName(miniMessage.deserialize("<white>Pile of Wheat Seeds</white>"));
         seedsMeta.setCustomModelData(2);
         seedsItem.setItemMeta(seedsMeta);
 
@@ -48,9 +51,10 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactCarrotShapedRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack carrotItem = new ItemStack(Material.CARROT);
         ItemMeta carrotMeta = carrotItem.getItemMeta();
-        carrotMeta.setDisplayName(ChatColor.WHITE+"Pile of Carrots");
+        carrotMeta.itemName(miniMessage.deserialize("<white>Pile of Carrots</white>"));
         carrotMeta.setCustomModelData(2);
         carrotItem.setItemMeta(carrotMeta);
 
@@ -64,9 +68,10 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactCarrotShapelessRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack carrotItem = new ItemStack(Material.CARROT);
         ItemMeta carrotMeta = carrotItem.getItemMeta();
-        carrotMeta.setDisplayName(ChatColor.WHITE+"Pile of Carrots");
+        carrotMeta.itemName(miniMessage.deserialize("<white>Pile of Carrots</white>"));
         carrotMeta.setCustomModelData(2);
         carrotItem.setItemMeta(carrotMeta);
 
@@ -78,9 +83,10 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactPotatoShapedRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack potatoItem = new ItemStack(Material.POTATO);
         ItemMeta potatoMeta = potatoItem.getItemMeta();
-        potatoMeta.setDisplayName(ChatColor.WHITE+"Pile of Potatoes");
+        potatoMeta.itemName(miniMessage.deserialize("<white>Pile of Potatoes</white>"));
         potatoMeta.setCustomModelData(2);
         potatoItem.setItemMeta(potatoMeta);
 
@@ -94,9 +100,10 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactPotatoShapelessRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack potatoItem = new ItemStack(Material.POTATO);
         ItemMeta potatoMeta = potatoItem.getItemMeta();
-        potatoMeta.setDisplayName(ChatColor.WHITE+"Pile of Potatoes");
+        potatoMeta.itemName(miniMessage.deserialize("<white>Pile of Potatoes</white>"));
         potatoMeta.setCustomModelData(2);
         potatoItem.setItemMeta(potatoMeta);
 
@@ -108,9 +115,10 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactBeetrootSeedsShapedRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack beetrootSeedsItem = new ItemStack(Material.BEETROOT_SEEDS);
         ItemMeta beetrootSeedsMeta = beetrootSeedsItem.getItemMeta();
-        beetrootSeedsMeta.setDisplayName(ChatColor.WHITE+"Pile of Beetroot Seeds");
+        beetrootSeedsMeta.itemName(miniMessage.deserialize("<white>Pile of Beetroot Seeds</white>"));
         beetrootSeedsMeta.setCustomModelData(2);
         beetrootSeedsItem.setItemMeta(beetrootSeedsMeta);
 
@@ -124,9 +132,10 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactBeetrootSeedsShapelessRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack beetrootSeedsItem = new ItemStack(Material.BEETROOT_SEEDS);
         ItemMeta beetrootSeedsMeta = beetrootSeedsItem.getItemMeta();
-        beetrootSeedsMeta.setDisplayName(ChatColor.WHITE+"Pile of Beetroot Seeds");
+        beetrootSeedsMeta.itemName(miniMessage.deserialize("<white>Pile of Beetroot Seeds</white>"));
         beetrootSeedsMeta.setCustomModelData(2);
         beetrootSeedsItem.setItemMeta(beetrootSeedsMeta);
 
@@ -138,9 +147,10 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactBeetrootShapedRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack beetrootItem = new ItemStack(Material.BEETROOT);
         ItemMeta beetrootMeta = beetrootItem.getItemMeta();
-        beetrootMeta.setDisplayName(ChatColor.WHITE+"Pile of Beetroots");
+        beetrootMeta.itemName(miniMessage.deserialize("<white>Pile of Beetroots</white>"));
         beetrootMeta.setCustomModelData(2);
         beetrootItem.setItemMeta(beetrootMeta);
 
@@ -154,9 +164,10 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactBeetrootShapelessRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack beetrootItem = new ItemStack(Material.BEETROOT);
         ItemMeta beetrootMeta = beetrootItem.getItemMeta();
-        beetrootMeta.setDisplayName(ChatColor.WHITE+"Pile of Beetroots");
+        beetrootMeta.itemName(miniMessage.deserialize("<white>Pile of Beetroots</white>"));
         beetrootMeta.setCustomModelData(2);
         beetrootItem.setItemMeta(beetrootMeta);
 
@@ -168,9 +179,10 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactNetherWartShapedRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack netherWartItem = new ItemStack(Material.NETHER_WART);
         ItemMeta netherWartMeta = netherWartItem.getItemMeta();
-        netherWartMeta.setDisplayName(ChatColor.WHITE+"Pile of Nether Warts");
+        netherWartMeta.itemName(miniMessage.deserialize("<white>Pile of Nether Warts</white>"));
         netherWartMeta.setCustomModelData(2);
         netherWartItem.setItemMeta(netherWartMeta);
 
@@ -184,9 +196,10 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactNetherWartShapelessRecipe(){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack netherWartItem = new ItemStack(Material.NETHER_WART);
         ItemMeta netherWartMeta = netherWartItem.getItemMeta();
-        netherWartMeta.setDisplayName(ChatColor.WHITE+"Pile of Nether Warts");
+        netherWartMeta.itemName(miniMessage.deserialize("<white>Pile of Nether Warts</white>"));
         netherWartMeta.setCustomModelData(2);
         netherWartItem.setItemMeta(netherWartMeta);
 

@@ -1,9 +1,7 @@
 package me.glasscrab.plentiful_harvest;
 
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -46,7 +44,7 @@ public class Manager {
      * @param amount - amount of the super crop
      * @returns ItemStack of the new super crop
      */
-    public ItemStack makeSuperCrop(String name, Material material, List<String> lore, int customModelData, int amount) {
+    public ItemStack makeSuperCrop(Component name, Material material, List<Component> lore, int customModelData, int amount) {
         ItemStack superCropItem = new ItemStack(material, amount);
         ItemMeta superCropItemMeta = superCropItem.getItemMeta();
 
@@ -54,8 +52,8 @@ public class Manager {
             return null;
         }
 
-        superCropItemMeta.setDisplayName(name);
-        superCropItemMeta.setLore(lore);
+        superCropItemMeta.itemName(name);
+        superCropItemMeta.lore(lore);
         superCropItemMeta.setCustomModelData(customModelData);
         superCropItem.setItemMeta(superCropItemMeta);
 
@@ -178,14 +176,14 @@ public class Manager {
      * @param cropBlockType - the type of the crop block
      * @returns the name of the crop block
      */
-    public String cropBlockName(Material cropBlockType){
+    public Component cropBlockName(Material cropBlockType){
         return switch (cropBlockType) {
-            case WHEAT -> ChatColor.YELLOW+"Whole Wheat";
-            case CARROTS -> ChatColor.GOLD+"Hyper Carrot";
-            case POTATOES -> ChatColor.GREEN+"Medicinal Potato";
-            case BEETROOTS -> ChatColor.LIGHT_PURPLE+"Mystic Beetroot";
-            case NETHER_WART -> ChatColor.DARK_AQUA+"Warped Nether Wart";
-            default -> ChatColor.GRAY+"Error Crop";
+            case WHEAT -> miniMessage.deserialize("<yellow>Whole Wheat</yellow>");
+            case CARROTS -> miniMessage.deserialize("<gold>Hyper Carrot</gold>");
+            case POTATOES -> miniMessage.deserialize("<green>Medicinal Potato</green>");
+            case BEETROOTS -> miniMessage.deserialize("<light_purple>Mystic Beetroot</light_purple>");
+            case NETHER_WART -> miniMessage.deserialize("<dark_aqua>Warped Nether Wart</dark_aqua>");
+            default -> miniMessage.deserialize("<gray>Error Crop</gray>");
         };
     }
 
@@ -194,14 +192,14 @@ public class Manager {
      * @param cropBlockType - the type of the crop block
      * @returns the message of the crop block
      */
-    public String cropBlockMessage(Material cropBlockType){
+    public Component cropBlockMessage(Material cropBlockType){
         return switch (cropBlockType) {
-            case WHEAT -> ChatColor.YELLOW+"You harvested a bundle of Whole Wheat!";
-            case CARROTS -> ChatColor.GOLD+"You uprooted a Hyper Carrot!";
-            case POTATOES -> ChatColor.GREEN+"You dug up a Medicinal Potato!";
-            case BEETROOTS -> ChatColor.LIGHT_PURPLE+"You felt the aura of a Mystic Beetroot!";
-            case NETHER_WART -> ChatColor.DARK_AQUA+"You uncovered a Warped Nether Wart!";
-            default -> ChatColor.GRAY+"Error Crop Message";
+            case WHEAT -> miniMessage.deserialize("<yellow>You harvested a bundle of Whole Wheat!</yellow>");
+            case CARROTS -> miniMessage.deserialize("<gold>You uprooted a Hyper Carrot!</gold>");
+            case POTATOES -> miniMessage.deserialize("<green>You dug up a Medicinal Potato!</green>");
+            case BEETROOTS -> miniMessage.deserialize("<light_purple>You felt the aura of a Mystic Beetroot!</light_purple>");
+            case NETHER_WART -> miniMessage.deserialize("<dark_aqua>You uncovered a Warped Nether Wart!</dark_aqua>");
+            default -> miniMessage.deserialize("<gray>Error Crop Message</gray>");
         };
     }
 

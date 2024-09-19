@@ -1,6 +1,8 @@
 package me.glasscrab.plentiful_harvest.Listeners;
 
 import me.glasscrab.plentiful_harvest.Manager;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -23,6 +25,7 @@ public class EditHoeOnJoinEvent implements Listener {
 
     @EventHandler
     public void editHoeOnJoin(PlayerJoinEvent e){
+        var miniMessage = MiniMessage.miniMessage();
         ItemStack[] playerInventory  = e.getPlayer().getInventory().getContents();
         int i = 0;
         for(ItemStack item: playerInventory){
@@ -31,8 +34,10 @@ public class EditHoeOnJoinEvent implements Listener {
             if(!manager.isOldHoe(item)) continue;
             ItemStack farmersHoe = new ItemStack(Material.WOODEN_HOE);
             ItemMeta farmersHoeMeta = farmersHoe.getItemMeta();
-            farmersHoeMeta.setDisplayName(ChatColor.GOLD+"Farmer's Hoe");
-            farmersHoeMeta.setLore(List.of(ChatColor.GRAY+"New technology allows for automatic",ChatColor.GRAY+"replanting of crops.","",ChatColor.GRAY+"Void Normal Crops: "+ChatColor.RED+"OFF"));
+            farmersHoeMeta.itemName(miniMessage.deserialize("<gold>Farmer's Hoe</gold>"));
+            farmersHoeMeta.lore(List.of(miniMessage.deserialize("<gray>New technology allows for automatic</gray>"),
+                                    miniMessage.deserialize("<gray>replanting of crops.</gray>"),miniMessage.deserialize(""),
+                                    miniMessage.deserialize("<gray>Void Normal Crops: </gray><red>OFF</red>")));
             farmersHoeMeta.setCustomModelData(2767);
             farmersHoeMeta.setUnbreakable(true);
             farmersHoeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

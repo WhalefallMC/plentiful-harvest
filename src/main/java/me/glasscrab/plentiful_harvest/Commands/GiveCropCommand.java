@@ -18,7 +18,7 @@ public class GiveCropCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
-        var miniMessage = MiniMessage.miniMessage();
+        private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
         if(!(sender instanceof Player player)) {
             sender.sendMessage(miniMessage.deserialize("<red>You must be a player to use this command.</red>"));

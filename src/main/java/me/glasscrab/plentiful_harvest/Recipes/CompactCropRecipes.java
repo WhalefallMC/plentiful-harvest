@@ -17,9 +17,8 @@ public class CompactCropRecipes {
     public CompactCropRecipes(PlentifulHarvest plugin){
         this.plugin = plugin;
     }
-
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
     public ShapedRecipe compactWheatSeedsShapedRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack seedsItem = new ItemStack(Material.WHEAT_SEEDS);
         ItemMeta seedsMeta = seedsItem.getItemMeta();
         seedsMeta.itemName(miniMessage.deserialize("<white>Pile of Wheat Seeds</white>"));
@@ -36,7 +35,6 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactWheatSeedsShapelessRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack seedsItem = new ItemStack(Material.WHEAT_SEEDS);
         ItemMeta seedsMeta = seedsItem.getItemMeta();
         seedsMeta.itemName(miniMessage.deserialize("<white>Pile of Wheat Seeds</white>"));
@@ -51,7 +49,6 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactCarrotShapedRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack carrotItem = new ItemStack(Material.CARROT);
         ItemMeta carrotMeta = carrotItem.getItemMeta();
         carrotMeta.itemName(miniMessage.deserialize("<white>Pile of Carrots</white>"));
@@ -68,7 +65,6 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactCarrotShapelessRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack carrotItem = new ItemStack(Material.CARROT);
         ItemMeta carrotMeta = carrotItem.getItemMeta();
         carrotMeta.itemName(miniMessage.deserialize("<white>Pile of Carrots</white>"));
@@ -83,7 +79,6 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactPotatoShapedRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack potatoItem = new ItemStack(Material.POTATO);
         ItemMeta potatoMeta = potatoItem.getItemMeta();
         potatoMeta.itemName(miniMessage.deserialize("<white>Pile of Potatoes</white>"));
@@ -100,7 +95,6 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactPotatoShapelessRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack potatoItem = new ItemStack(Material.POTATO);
         ItemMeta potatoMeta = potatoItem.getItemMeta();
         potatoMeta.itemName(miniMessage.deserialize("<white>Pile of Potatoes</white>"));
@@ -115,7 +109,6 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactBeetrootSeedsShapedRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack beetrootSeedsItem = new ItemStack(Material.BEETROOT_SEEDS);
         ItemMeta beetrootSeedsMeta = beetrootSeedsItem.getItemMeta();
         beetrootSeedsMeta.itemName(miniMessage.deserialize("<white>Pile of Beetroot Seeds</white>"));
@@ -132,7 +125,6 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactBeetrootSeedsShapelessRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack beetrootSeedsItem = new ItemStack(Material.BEETROOT_SEEDS);
         ItemMeta beetrootSeedsMeta = beetrootSeedsItem.getItemMeta();
         beetrootSeedsMeta.itemName(miniMessage.deserialize("<white>Pile of Beetroot Seeds</white>"));
@@ -147,7 +139,6 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactBeetrootShapedRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack beetrootItem = new ItemStack(Material.BEETROOT);
         ItemMeta beetrootMeta = beetrootItem.getItemMeta();
         beetrootMeta.itemName(miniMessage.deserialize("<white>Pile of Beetroots</white>"));
@@ -164,7 +155,6 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactBeetrootShapelessRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack beetrootItem = new ItemStack(Material.BEETROOT);
         ItemMeta beetrootMeta = beetrootItem.getItemMeta();
         beetrootMeta.itemName(miniMessage.deserialize("<white>Pile of Beetroots</white>"));
@@ -179,7 +169,6 @@ public class CompactCropRecipes {
     }
 
     public ShapedRecipe compactNetherWartShapedRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack netherWartItem = new ItemStack(Material.NETHER_WART);
         ItemMeta netherWartMeta = netherWartItem.getItemMeta();
         netherWartMeta.itemName(miniMessage.deserialize("<white>Pile of Nether Warts</white>"));
@@ -196,7 +185,6 @@ public class CompactCropRecipes {
     }
 
     public ShapelessRecipe uncompactNetherWartShapelessRecipe(){
-        var miniMessage = MiniMessage.miniMessage();
         ItemStack netherWartItem = new ItemStack(Material.NETHER_WART);
         ItemMeta netherWartMeta = netherWartItem.getItemMeta();
         netherWartMeta.itemName(miniMessage.deserialize("<white>Pile of Nether Warts</white>"));

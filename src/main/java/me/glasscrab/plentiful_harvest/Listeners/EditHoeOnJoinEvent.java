@@ -25,7 +25,7 @@ public class EditHoeOnJoinEvent implements Listener {
 
     @EventHandler
     public void editHoeOnJoin(PlayerJoinEvent e){
-        var miniMessage = MiniMessage.miniMessage();
+        private final MiniMessage miniMessage = MiniMessage.miniMessage();
         ItemStack[] playerInventory  = e.getPlayer().getInventory().getContents();
         int i = 0;
         for(ItemStack item: playerInventory){

@@ -19,7 +19,7 @@ public class CustomRecipes {
     public CustomRecipes(PlentifulHarvest plugin){
         this.plugin = plugin;
     }
-
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
     public ItemStack makeSuperCrop(Component name, Material material, List<Component> lore, int customModelData, int amount) {
         ItemStack superCropItem = new ItemStack(material, amount);
         ItemMeta superCropItemMeta = superCropItem.getItemMeta();
@@ -39,7 +39,6 @@ public class CustomRecipes {
     public ShapedRecipe farmersBootsShapedRecipe(){
         ItemStack farmersBoots = new ItemStack(Material.LEATHER_BOOTS);
         ItemMeta farmersBootsMeta = farmersBoots.getItemMeta();
-        var miniMessage = MiniMessage.miniMessage();
         ((LeatherArmorMeta) farmersBootsMeta).setColor(Color.fromRGB(245, 113, 37));
         farmersBootsMeta.itemName(miniMessage.deserialize("<gold>Farmer's Boots</gold>"));
         farmersBootsMeta.lore(List.of(miniMessage.deserialize("<gray>Wear these and you'll never have</gray>"), 
@@ -65,7 +64,6 @@ public class CustomRecipes {
     public ShapedRecipe farmersHoeShapedRecipe(){
         ItemStack farmersHoe = new ItemStack(Material.WOODEN_HOE);
         ItemMeta farmersHoeMeta = farmersHoe.getItemMeta();
-        var miniMessage = MiniMessage.miniMessage();
         farmersHoeMeta.itemName(miniMessage.deserialize("<gold>Farmer's Hoe</gold>"));
         farmersHoeMeta.lore(List.of(miniMessage.deserialize("<gray>New technology allows for automatic</gray>"),
                                     miniMessage.deserialize("<gray>replanting of crops.</gray>")));
@@ -93,7 +91,6 @@ public class CustomRecipes {
     public StonecuttingRecipe wholeFlourStoneCuttingRecipe(){
         ItemStack wholeFlour = new ItemStack(Material.SUGAR);
         ItemMeta wholeFlourMeta = wholeFlour.getItemMeta();
-        var miniMessage = MiniMessage.miniMessage();
         wholeFlourMeta.itemName(miniMessage.deserialize("<white>Whole Flour</white>"));
         wholeFlourMeta.lore(List.of(miniMessage.deserialize("<gray>100% whole grain.</gray>")));
         wholeFlourMeta.setCustomModelData(1);
@@ -108,7 +105,6 @@ public class CustomRecipes {
     public SmokingRecipe wholeBreadSmokingRecipe(){
         ItemStack wholeFlour = new ItemStack(Material.SUGAR);
         ItemMeta wholeFlourMeta = wholeFlour.getItemMeta();
-        var miniMessage = MiniMessage.miniMessage();
         wholeFlourMeta.itemName(miniMessage.deserialize("<white>Whole Flour</white>"));
         wholeFlourMeta.lore(List.of(miniMessage.deserialize("<gray>100% whole grain.</gray>")));
         wholeFlourMeta.setCustomModelData(1);

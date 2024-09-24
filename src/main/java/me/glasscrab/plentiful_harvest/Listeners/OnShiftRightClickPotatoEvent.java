@@ -26,7 +26,7 @@ public class OnShiftRightClickPotatoEvent implements Listener {
         e.getPlayer().setHealth(e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
         e.getPlayer().getWorld().spawnParticle(Particle.HAPPY_VILLAGER, e.getPlayer().getEyeLocation(),15,.3,.3,.3);
         e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.MASTER, 1,1);
-        var miniMessage = MiniMessage.miniMessage();
+        private final MiniMessage miniMessage = MiniMessage.miniMessage();
         e.getPlayer().sendActionBar(miniMessage.deserialize("<green>You have been healed!</green>"));
         e.getItem().setAmount(e.getItem().getAmount()-1);
     }

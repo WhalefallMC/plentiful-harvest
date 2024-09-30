@@ -37,7 +37,7 @@ public class CropBreakEvent implements Listener {
         if(event.getBlockState() instanceof Container) return; // If the block is a container, return
 
         Ageable age = (Ageable) event.getBlockState().getBlockData();
-        private final MiniMessage miniMessage = MiniMessage.miniMessage();
+        final MiniMessage miniMessage = MiniMessage.miniMessage();
 
         // If the crop is not fully grown and is harvested by a custom hoe, replant the crop
         // return if the crop is fully grown or if the crop is harvested by a non-custom hoe

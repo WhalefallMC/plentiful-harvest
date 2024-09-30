@@ -27,7 +27,7 @@ public class OnMysticBeetrootConsumeEvent implements Listener {
                 i.setItemMeta(damageable);
             }
         }
-        private final MiniMessage miniMessage = MiniMessage.miniMessage();
+        final MiniMessage miniMessage = MiniMessage.miniMessage();
         e.getPlayer().sendActionBar(miniMessage.deserialize("<light_purple>The beetroot's aura envelops your tools..</light_purple>"));
     }
 }

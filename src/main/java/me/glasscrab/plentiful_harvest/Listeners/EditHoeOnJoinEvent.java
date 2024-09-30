@@ -3,7 +3,6 @@ package me.glasscrab.plentiful_harvest.Listeners;
 import me.glasscrab.plentiful_harvest.Manager;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,7 +24,7 @@ public class EditHoeOnJoinEvent implements Listener {
 
     @EventHandler
     public void editHoeOnJoin(PlayerJoinEvent e){
-        private final MiniMessage miniMessage = MiniMessage.miniMessage();
+        final MiniMessage miniMessage = MiniMessage.miniMessage();
         ItemStack[] playerInventory  = e.getPlayer().getInventory().getContents();
         int i = 0;
         for(ItemStack item: playerInventory){

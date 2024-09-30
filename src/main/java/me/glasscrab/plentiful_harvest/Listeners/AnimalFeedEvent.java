@@ -19,7 +19,7 @@ public class AnimalFeedEvent implements Listener {
         if(e.getHand().equals(EquipmentSlot.OFF_HAND)) return;
 
         ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
-        private final MiniMessage miniMessage = MiniMessage.miniMessage();
+        final MiniMessage miniMessage = MiniMessage.miniMessage();
 
         if(isSuperCrop(hand)) {
             e.setCancelled(true);

@@ -20,7 +20,7 @@ public class OnWholeBreadConsumeEvent implements Listener {
         e.getPlayer().setFoodLevel(20);
         e.getPlayer().setSaturation(20);
         
-        private final MiniMessage miniMessage = MiniMessage.miniMessage();
+        final MiniMessage miniMessage = MiniMessage.miniMessage();
         e.getPlayer().sendActionBar(miniMessage.deserialize("<yellow>You feel nourished.</yellow>"));
     }
 }

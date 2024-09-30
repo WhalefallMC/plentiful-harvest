@@ -10,12 +10,14 @@ import me.glasscrab.plentiful_harvest.Listeners.OnConsumeEvents.OnWarpedPotionCo
 import me.glasscrab.plentiful_harvest.Listeners.OnConsumeEvents.OnWholeBreadConsumeEvent;
 import me.glasscrab.plentiful_harvest.Recipes.CompactCropRecipes;
 import me.glasscrab.plentiful_harvest.Recipes.CustomRecipes;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PlentifulHarvest extends JavaPlugin {
 
     public static PlentifulHarvest INSTANCE;
+
     @Override
     public void onEnable() {
         Manager manager = new Manager();

@@ -1,7 +1,6 @@
 package me.glasscrab.plentiful_harvest.Listeners;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.event.EventHandler;
@@ -11,6 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class OnShiftRightClickPotatoEvent implements Listener {
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @EventHandler
     public void onShiftRightClickPotato(PlayerInteractEvent e){
@@ -25,9 +25,9 @@ public class OnShiftRightClickPotatoEvent implements Listener {
         if(e.getItem().getItemMeta().getCustomModelData() != 1) return;
 
         e.getPlayer().setHealth(e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-        e.getPlayer().getWorld().spawnParticle(Particle.VILLAGER_HAPPY, e.getPlayer().getEyeLocation(),15,.3,.3,.3);
+        e.getPlayer().getWorld().spawnParticle(Particle.HAPPY_VILLAGER, e.getPlayer().getEyeLocation(),15,.3,.3,.3);
         e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.MASTER, 1,1);
-        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GREEN+"You have been healed!"));
+        e.getPlayer().sendActionBar(miniMessage.deserialize("<green>You have been healed!</green>"));
         e.getItem().setAmount(e.getItem().getAmount()-1);
     }
 }

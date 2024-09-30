@@ -1,6 +1,5 @@
 package me.glasscrab.plentiful_harvest.Listeners;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,9 +10,12 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import net.kyori.adventure.text.minimessage.MiniMessage;
+
 import java.util.List;
 
 public class OnToggleHoeEvent implements Listener {
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @EventHandler
     public void onToggleHoe(PlayerInteractEvent e){
@@ -30,8 +32,10 @@ public class OnToggleHoeEvent implements Listener {
             if(e.getItem().getItemMeta().getCustomModelData() == 2767){
                 ItemStack farmersVoidHoe = new ItemStack(Material.WOODEN_HOE);
                 ItemMeta farmersVoidHoeMeta = farmersVoidHoe.getItemMeta();
-                farmersVoidHoeMeta.setDisplayName(ChatColor.GOLD+"Farmer's Voiding Hoe");
-                farmersVoidHoeMeta.setLore(List.of(ChatColor.GRAY+"New technology allows for automatic",ChatColor.GRAY+"replanting of crops.","",ChatColor.GRAY+"Void Normal Crops: "+ChatColor.GREEN+"ON"));
+                farmersVoidHoeMeta.itemName(miniMessage.deserialize("<gold>Farmer's Voiding Hoe</gold>"));
+                farmersVoidHoeMeta.lore(List.of(miniMessage.deserialize("<gray>New technology allows for automatic</gray>"),
+                                                miniMessage.deserialize("<gray>replanting of crops.</gray>"),miniMessage.deserialize(""),
+                                                miniMessage.deserialize("<gray>Void Normal Crops: </gray><green>ON</green>")));
                 farmersVoidHoeMeta.setCustomModelData(2768);
                 farmersVoidHoeMeta.setUnbreakable(true);
                 farmersVoidHoeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -44,8 +48,10 @@ public class OnToggleHoeEvent implements Listener {
             if(e.getItem().getItemMeta().getCustomModelData() == 2768){
                 ItemStack farmersHoe = new ItemStack(Material.WOODEN_HOE);
                 ItemMeta farmersHoeMeta = farmersHoe.getItemMeta();
-                farmersHoeMeta.setDisplayName(ChatColor.GOLD+"Farmer's Hoe");
-                farmersHoeMeta.setLore(List.of(ChatColor.GRAY+"New technology allows for automatic",ChatColor.GRAY+"replanting of crops.","",ChatColor.GRAY+"Void Normal Crops: "+ChatColor.RED+"OFF"));
+                farmersHoeMeta.itemName(miniMessage.deserialize("<gold>Farmer's Hoe</gold>"));
+                farmersHoeMeta.lore(List.of(miniMessage.deserialize("</gray>New technology allows for automatic"),
+                                            miniMessage.deserialize("<gray>replanting of crops.</gray>"),miniMessage.deserialize(""),
+                                            miniMessage.deserialize("<gray>Void Normal Crops: </gray><red>OFF</red>")));
                 farmersHoeMeta.setCustomModelData(2767);
                 farmersHoeMeta.setUnbreakable(true);
                 farmersHoeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

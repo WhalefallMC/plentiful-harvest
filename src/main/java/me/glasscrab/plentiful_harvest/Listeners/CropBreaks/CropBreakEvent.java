@@ -1,11 +1,9 @@
 package me.glasscrab.plentiful_harvest.Listeners.CropBreaks;
 
 import me.glasscrab.plentiful_harvest.Manager;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Sound;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+
 import org.bukkit.block.Container;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Item;
@@ -20,6 +18,7 @@ import java.util.List;
 
 public class CropBreakEvent implements Listener {
     private final Manager manager;
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public CropBreakEvent(Manager manager) {
         this.manager = manager;
@@ -50,7 +49,7 @@ public class CropBreakEvent implements Listener {
             return;
         }
 
-        for (int i = 0; i < event.getItems().size(); i++) {
+        for (int i = 0; i < event.getItems().size();) {
             // Chance to get a super crop
             int chance = 300;
             int rand = (int) (Math.random() * chance) + 1;
@@ -97,8 +96,8 @@ public class CropBreakEvent implements Listener {
 
             // If the player got the jackpot...
             player.sendMessage(manager.cropBlockMessage(event.getBlockState().getType()));
-            List<String> lore = new ArrayList<>();
-            lore.add(ChatColor.GRAY + manager.cropBlockLore(event.getBlockState().getType()));
+            List<Component> lore = new ArrayList<>();
+            lore.add(miniMessage.deserialize("<gray>"+manager.cropBlockLore(event.getBlockState().getType())+"</gray>"));
             // Create a super crop
             ItemStack superCrop = manager.makeSuperCrop(manager.cropBlockName(event.getBlockState().getType()), manager.cropBlockToItem(event.getBlockState().getType()), lore, 1, 1);
 

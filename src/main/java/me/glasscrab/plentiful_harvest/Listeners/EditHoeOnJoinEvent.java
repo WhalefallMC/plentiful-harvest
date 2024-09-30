@@ -1,7 +1,8 @@
 package me.glasscrab.plentiful_harvest.Listeners;
 
 import me.glasscrab.plentiful_harvest.Manager;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,7 +10,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.yaml.snakeyaml.util.ArrayUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.List;
 public class EditHoeOnJoinEvent implements Listener {
 
     private final Manager manager;
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public EditHoeOnJoinEvent(Manager manager) {
         this.manager = manager;
@@ -24,6 +25,7 @@ public class EditHoeOnJoinEvent implements Listener {
 
     @EventHandler
     public void editHoeOnJoin(PlayerJoinEvent e){
+
         ItemStack[] playerInventory  = e.getPlayer().getInventory().getContents();
         int i = 0;
         for(ItemStack item: playerInventory){
@@ -32,8 +34,10 @@ public class EditHoeOnJoinEvent implements Listener {
             if(!manager.isOldHoe(item)) continue;
             ItemStack farmersHoe = new ItemStack(Material.WOODEN_HOE);
             ItemMeta farmersHoeMeta = farmersHoe.getItemMeta();
-            farmersHoeMeta.setDisplayName(ChatColor.GOLD+"Farmer's Hoe");
-            farmersHoeMeta.setLore(List.of(ChatColor.GRAY+"New technology allows for automatic",ChatColor.GRAY+"replanting of crops.","",ChatColor.GRAY+"Void Normal Crops: "+ChatColor.RED+"OFF"));
+            farmersHoeMeta.itemName(miniMessage.deserialize("<gold>Farmer's Hoe</gold>"));
+            farmersHoeMeta.lore(List.of(miniMessage.deserialize("<gray>New technology allows for automatic</gray>"),
+                                    miniMessage.deserialize("<gray>replanting of crops.</gray>"),miniMessage.deserialize(""),
+                                    miniMessage.deserialize("<gray>Void Normal Crops: </gray><red>OFF</red>")));
             farmersHoeMeta.setCustomModelData(2767);
             farmersHoeMeta.setUnbreakable(true);
             farmersHoeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

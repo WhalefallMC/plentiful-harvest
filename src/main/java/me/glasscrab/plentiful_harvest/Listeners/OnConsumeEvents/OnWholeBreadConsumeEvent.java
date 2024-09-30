@@ -1,15 +1,13 @@
 package me.glasscrab.plentiful_harvest.Listeners.OnConsumeEvents;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 public class OnWholeBreadConsumeEvent implements Listener {
-
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @EventHandler
     public void onWholeBreadConsume(PlayerItemConsumeEvent e){
@@ -21,6 +19,8 @@ public class OnWholeBreadConsumeEvent implements Listener {
 
         e.getPlayer().setFoodLevel(20);
         e.getPlayer().setSaturation(20);
-        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.YELLOW+"You feel nourished."));
+        
+
+        e.getPlayer().sendActionBar(miniMessage.deserialize("<yellow>You feel nourished.</yellow>"));
     }
 }

@@ -1,15 +1,13 @@
 package me.glasscrab.plentiful_harvest.Listeners.OnConsumeEvents;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 public class OnWarpedPotionConsumeEvent implements Listener {
-
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
     @EventHandler
     public void onPotionConsume(PlayerItemConsumeEvent e){
         if(!e.getItem().getType().equals(Material.POTION)) return;
@@ -20,7 +18,7 @@ public class OnWarpedPotionConsumeEvent implements Listener {
 
         if(!e.getPlayer().getWorld().isPiglinSafe()){
             e.setCancelled(true);
-            e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED+"You can only drink this in the Nether!"));
+            e.getPlayer().sendActionBar(miniMessage.deserialize("<red>You can only drink this in the Nether!</red>"));
         }
     }
 

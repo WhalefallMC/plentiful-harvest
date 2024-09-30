@@ -15,10 +15,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class GiveCropCommand implements CommandExecutor {
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-
-        final MiniMessage miniMessage = MiniMessage.miniMessage();
 
         if(!(sender instanceof Player player)) {
             sender.sendMessage(miniMessage.deserialize("<red>You must be a player to use this command.</red>"));

@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 
 public class OnMysticBeetrootConsumeEvent implements Listener {
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @EventHandler
     public void onMysticBeetrootConsume(PlayerItemConsumeEvent e){
@@ -27,7 +28,6 @@ public class OnMysticBeetrootConsumeEvent implements Listener {
                 i.setItemMeta(damageable);
             }
         }
-        final MiniMessage miniMessage = MiniMessage.miniMessage();
         e.getPlayer().sendActionBar(miniMessage.deserialize("<light_purple>The beetroot's aura envelops your tools..</light_purple>"));
     }
 }

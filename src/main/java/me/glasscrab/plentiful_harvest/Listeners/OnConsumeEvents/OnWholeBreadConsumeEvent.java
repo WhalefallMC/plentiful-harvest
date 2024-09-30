@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 public class OnWholeBreadConsumeEvent implements Listener {
-
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @EventHandler
     public void onWholeBreadConsume(PlayerItemConsumeEvent e){
@@ -20,7 +20,7 @@ public class OnWholeBreadConsumeEvent implements Listener {
         e.getPlayer().setFoodLevel(20);
         e.getPlayer().setSaturation(20);
         
-        final MiniMessage miniMessage = MiniMessage.miniMessage();
+
         e.getPlayer().sendActionBar(miniMessage.deserialize("<yellow>You feel nourished.</yellow>"));
     }
 }

@@ -15,6 +15,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import java.util.List;
 
 public class OnToggleHoeEvent implements Listener {
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @EventHandler
     public void onToggleHoe(PlayerInteractEvent e){
@@ -28,7 +29,6 @@ public class OnToggleHoeEvent implements Listener {
         if(!e.getItem().getItemMeta().hasCustomModelData()) return;
         if(e.getItem().getItemMeta().getCustomModelData() == 2767 || e.getItem().getItemMeta().getCustomModelData() == 2768){
             e.setCancelled(true);
-            final MiniMessage miniMessage = MiniMessage.miniMessage();
             if(e.getItem().getItemMeta().getCustomModelData() == 2767){
                 ItemStack farmersVoidHoe = new ItemStack(Material.WOODEN_HOE);
                 ItemMeta farmersVoidHoeMeta = farmersVoidHoe.getItemMeta();

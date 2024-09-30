@@ -17,6 +17,7 @@ import java.util.List;
 public class EditHoeOnJoinEvent implements Listener {
 
     private final Manager manager;
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public EditHoeOnJoinEvent(Manager manager) {
         this.manager = manager;
@@ -24,7 +25,7 @@ public class EditHoeOnJoinEvent implements Listener {
 
     @EventHandler
     public void editHoeOnJoin(PlayerJoinEvent e){
-        final MiniMessage miniMessage = MiniMessage.miniMessage();
+
         ItemStack[] playerInventory  = e.getPlayer().getInventory().getContents();
         int i = 0;
         for(ItemStack item: playerInventory){

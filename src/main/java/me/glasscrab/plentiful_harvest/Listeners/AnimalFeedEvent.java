@@ -12,14 +12,14 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 public class AnimalFeedEvent implements Listener {
-
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
     @EventHandler
     public void feedAnimal(PlayerInteractEntityEvent e) {
 
         if(e.getHand().equals(EquipmentSlot.OFF_HAND)) return;
 
         ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
-        final MiniMessage miniMessage = MiniMessage.miniMessage();
+
 
         if(isSuperCrop(hand)) {
             e.setCancelled(true);

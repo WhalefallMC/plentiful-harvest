@@ -18,6 +18,7 @@ import java.util.List;
 
 public class CropBreakEvent implements Listener {
     private final Manager manager;
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public CropBreakEvent(Manager manager) {
         this.manager = manager;
@@ -37,7 +38,6 @@ public class CropBreakEvent implements Listener {
         if(event.getBlockState() instanceof Container) return; // If the block is a container, return
 
         Ageable age = (Ageable) event.getBlockState().getBlockData();
-        final MiniMessage miniMessage = MiniMessage.miniMessage();
 
         // If the crop is not fully grown and is harvested by a custom hoe, replant the crop
         // return if the crop is fully grown or if the crop is harvested by a non-custom hoe

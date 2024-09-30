@@ -14,6 +14,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import java.util.List;
 
 public class WarpedNetherWartBrewEvent implements Listener {
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     //CREATE EVENT FOR DRINKING POTION SO YOU CAN ONLY DRINK THIS IN THE NETHER
 
@@ -23,7 +24,6 @@ public class WarpedNetherWartBrewEvent implements Listener {
         if(!e.getContents().getIngredient().hasItemMeta()) return;
         if(!e.getContents().getIngredient().getItemMeta().hasCustomModelData()) return;
         if(e.getContents().getIngredient().getItemMeta().getCustomModelData() != 1) return;
-        var miniMessage = MiniMessage.miniMessage();
 
         ItemStack hastePotion = new ItemStack(Material.POTION);
         PotionMeta hastePotionMeta = (PotionMeta) hastePotion.getItemMeta();

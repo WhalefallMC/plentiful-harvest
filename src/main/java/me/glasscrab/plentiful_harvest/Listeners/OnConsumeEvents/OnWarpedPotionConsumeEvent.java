@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 public class OnWarpedPotionConsumeEvent implements Listener {
-
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
     @EventHandler
     public void onPotionConsume(PlayerItemConsumeEvent e){
         if(!e.getItem().getType().equals(Material.POTION)) return;
@@ -18,7 +18,6 @@ public class OnWarpedPotionConsumeEvent implements Listener {
 
         if(!e.getPlayer().getWorld().isPiglinSafe()){
             e.setCancelled(true);
-            var miniMessage = MiniMessage.miniMessage();
             e.getPlayer().sendActionBar(miniMessage.deserialize("<red>You can only drink this in the Nether!</red>"));
         }
     }
